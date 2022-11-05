@@ -60,7 +60,11 @@ function success(pos) {
         distance: r.s12,
         azimuth: r.azi1,
         accuracy: crd.accuracy,
+        heading: crd.heading,
     };
+
+    const $compass = document.getElementById("compass");
+    $compass.textContent = _myPosition.heading;
 
     _updateCount = (_updateCount + 1) % 10;
 
@@ -123,24 +127,8 @@ function error(err) {
     }, 1000);
 })();
 
-if (DeviceOrientationEvent in window) {
-    window.addEventListener("deviceorientation", function (event) {
-        let flg = true;
-
-        if (!flg) {
-            return;
-        }
-        console.log("方角       : " + event.alpha);
-        console.log("上下の傾き : " + event.beta);
-        console.log("左右の傾き : " + event.gamma);
-
-        console.log("コンパスの向き : " + event.webkitCompassHeading);
-
-        const $compass = document.getElementById("compass");
-
-        $compass.textContent = event.webkitCompassHeading;
-
-        console.log("コンパスの精度 : " + event.webkitCompassAccuracy);
-        flg = false;
-    });
+function disableScroll(event) {
+    event.preventDefault();
 }
+
+document.addEventListener("touchmove", disableScroll, { passive: false });
