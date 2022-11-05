@@ -76,10 +76,7 @@ function success(pos) {
         const r2 = (distance * (42.5 - 1.5)) / 5000;
 
         if (distance <= 5000) {
-            if (_myPosition.heading)
-                _theta = ((90 - _myPosition.heading - r.azi1) * Math.PI) / 180;
-            if (!_theta) return;
-
+            _theta = ((90 + _myPosition.heading - r.azi1) * Math.PI) / 180;
             _circles[name].style.transform = `translate(calc(-50% + ${
                 r2 * Math.cos(_theta)
             }vw), calc(-50% - ${r2 * Math.sin(_theta)}vw))`;
