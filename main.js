@@ -121,7 +121,7 @@ function error(err) {
                 if (distance <= 5000) {
                     if (_myPosition.heading)
                         theta =
-                            ((90 + _myPosition.heading - r.azi1) * Math.PI) /
+                            ((90 - _myPosition.heading - r.azi1) * Math.PI) /
                             180;
                     _circles[name].style.transform = `translate(calc(-50% + ${
                         r2 * Math.cos(theta)
