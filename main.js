@@ -1,8 +1,8 @@
 let _circles = {};
 let _ruinNames = [];
-let _data = {};
+let _data = undefined;
 let _myPosition = undefined;
-let _updateCount = 0;
+let _theta = undefined;
 
 function createDOM(names) {
     let circles = {};
@@ -63,21 +63,32 @@ function success(pos) {
         heading: crd.heading,
     };
 
-    _updateCount = (_updateCount + 1) % 10;
+    const $compass = document.getElementById("compass");
+    $compass.textContent = _myPosition.heading;
 
-    // _ruinNames.forEach((name) => {
-    //     r = geod.Inverse(
-    //         crd.latitude,
-    //         crd.longitude,
-    //         _data[name].latitude,
-    //         _data[name].longitude
-    //     );
-    //     console.log(
-    //         name + "The distance is " + r.s12.toFixed(3) / 1000 + " km."
-    //     );
+    if (!_data) return;
 
-    //     console.log("方位角" + r.azi1);
-    // });
+    _ruinNames.forEach((name) => {
+        r = geod.Inverse(
+            _myPosition.latitude,
+            _myPosition.longitude,
+            _data[name].latitude,
+            _data[name].longitude
+        );
+        const distance = r.s12.toFixed(3);
+        const r2 = (distance * (42.5 - 1.5)) / 5000;
+
+        if (distance <= 5000) {
+            if (_myPosition.heading)
+                _theta = ((90 - _myPosition.heading - r.azi1) * Math.PI) / 180;
+            if (!_theta) return;
+
+            _circles[name].style.transform = `translate(calc(-50% + ${
+                r2 * Math.cos(_theta)
+            }vw), calc(-50% - ${r2 * Math.sin(_theta)}vw))`;
+            _circles[name].style.visibility = "visible";
+        }
+    });
 }
 
 function error(err) {
@@ -85,54 +96,40 @@ function error(err) {
 }
 
 (async () => {
-    navigator.geolocation.getCurrentPosition(success, error, options);
+    navigator.geolocation.watchPosition(success, error, options);
 
     const { data, ruinNames } = await getData();
     _data = data;
     _ruinNames = ruinNames;
     _circles = createDOM(ruinNames);
-    let preUpdateCount = 1;
 
-    setInterval(() => {
-        if (_myPosition && preUpdateCount === _updateCount) {
-            preUpdateCount = (preUpdateCount + 1) % 10;
+    if (_myPosition) {
+        let geod = geodesic.Geodesic.WGS84,
+            r;
 
-            let geod = geodesic.Geodesic.WGS84,
-                r;
+        let theta;
 
-            const $compass = document.getElementById("compass");
-            $compass.textContent = _myPosition.heading;
+        _ruinNames.forEach((name) => {
+            r = geod.Inverse(
+                _myPosition.latitude,
+                _myPosition.longitude,
+                _data[name].latitude,
+                _data[name].longitude
+            );
+            const distance = r.s12.toFixed(3);
+            const r2 = (distance * (42.5 - 1.5)) / 5000;
 
-            if (!_myPosition.heading) {
-                $compass.textContent = $compass.textContent;
+            if (distance <= 5000) {
+                if (_myPosition.heading)
+                    theta =
+                        ((90 - _myPosition.heading - r.azi1) * Math.PI) / 180;
+                _circles[name].style.transform = `translate(calc(-50% + ${
+                    r2 * Math.cos(theta)
+                }vw), calc(-50% - ${r2 * Math.sin(theta)}vw))`;
+                _circles[name].style.visibility = "visible";
             }
-            let theta;
-
-            _ruinNames.forEach((name) => {
-                r = geod.Inverse(
-                    _myPosition.latitude,
-                    _myPosition.longitude,
-                    _data[name].latitude,
-                    _data[name].longitude
-                );
-                const distance = r.s12.toFixed(3);
-                const r2 = (distance * (42.5 - 1.5)) / 5000;
-
-                if (distance <= 5000) {
-                    if (_myPosition.heading)
-                        theta =
-                            ((90 - _myPosition.heading - r.azi1) * Math.PI) /
-                            180;
-                    _circles[name].style.transform = `translate(calc(-50% + ${
-                        r2 * Math.cos(theta)
-                    }vw), calc(-50% - ${r2 * Math.sin(theta)}vw))`;
-                    _circles[name].style.visibility = "visible";
-                }
-            });
-
-            navigator.geolocation.getCurrentPosition(success, error, options);
-        }
-    }, 1000);
+        });
+    }
 })();
 
 function disableScroll(event) {
