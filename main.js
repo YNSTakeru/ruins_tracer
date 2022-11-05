@@ -148,10 +148,10 @@ function orientation(event) {
             _theta =
                 ((90 + _myPosition.heading - _myPosition.azimuth) * Math.PI) /
                 180;
-            _circles[ruinNames[i]].style.transform = `translate(calc(-50% + ${
+            _circles[_ruinNames[i]].style.transform = `translate(calc(-50% + ${
                 distance * Math.cos(_theta)
             }vw), calc(-50% - ${distance * Math.sin(_theta)}vw))`;
-            _circles[ruinNames[i]].style.visibility = "visible";
+            _circles[_ruinNames[i]].style.visibility = "visible";
         });
     } else {
         // deviceorientationabsoluteイベントのalphaを補正
