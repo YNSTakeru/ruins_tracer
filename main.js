@@ -114,6 +114,7 @@ function error(err) {
                     _circles[name].style.transform = `translate(calc(-50% + ${
                         r2 * Math.cos(theta)
                     }vw), calc(-50% - ${r2 * Math.sin(theta)}vw))`;
+                    _circles[name].style.visibility = "visible";
                 }
             });
 
@@ -134,6 +135,11 @@ if (DeviceOrientationEvent in window) {
         console.log("左右の傾き : " + event.gamma);
 
         console.log("コンパスの向き : " + event.webkitCompassHeading);
+
+        const $compass = document.getElementById("compass");
+
+        $compass.textContent = event.webkitCompassHeading;
+
         console.log("コンパスの精度 : " + event.webkitCompassAccuracy);
         flg = false;
     });
