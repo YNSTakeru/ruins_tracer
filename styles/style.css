@@ -1,0 +1,51 @@
+* {
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+
+.header__wrapper {
+    position: absolute;
+    padding: 10px 10px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+#radar {
+    height: 100vh;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.map__circle {
+    border-radius: 100%;
+    width: 85vw;
+    height: 85vw;
+    background-color: green;
+    position: relative;
+}
+
+.center__circle {
+    position: absolute;
+    border-radius: 100%;
+    width: 5vw;
+    height: 5vw;
+    background-color: gray;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.circle {
+    position: absolute;
+    border-radius: 100%;
+    width: 3vw;
+    height: 3vw;
+    background-color: yellow;
+    top: 50%;
+    left: 50%;
+    transform: translate(calc(-50% + 100vw), calc(-50% + 0vw));
+}
