@@ -60,7 +60,32 @@ function success(pos) {
         distance: r.s12,
         azimuth: r.azi1,
         accuracy: crd.accuracy,
+        heading: crd.heading,
     };
+
+    if (!_data) return;
+
+    _ruinNames.forEach((name) => {
+        r = geod.Inverse(
+            _myPosition.latitude,
+            _myPosition.longitude,
+            _data[name].latitude,
+            _data[name].longitude
+        );
+        const distance = r.s12.toFixed(3);
+        const r2 = (distance * (42.5 - 1.5)) / 5000;
+
+        if (distance <= 5000) {
+            if (_myPosition.heading)
+                _theta = ((90 - _myPosition.heading - r.azi1) * Math.PI) / 180;
+            if (!_theta) return;
+
+            _circles[name].style.transform = `translate(calc(-50% + ${
+                r2 * Math.cos(_theta)
+            }vw), calc(-50% - ${r2 * Math.sin(_theta)}vw))`;
+            _circles[name].style.visibility = "visible";
+        }
+    });
 }
 
 function error(err) {
@@ -117,26 +142,7 @@ function orientation(event) {
         degrees = event.webkitCompassHeading;
         const $compass = document.querySelector("#compass");
         $compass.textContent = degrees;
-
-        _ruinNames.forEach((name) => {
-            r = geod.Inverse(
-                _myPosition.latitude,
-                _myPosition.longitude,
-                _data[name].latitude,
-                _data[name].longitude
-            );
-            const distance = r.s12.toFixed(3);
-            const r2 = (distance * (42.5 - 1.5)) / 5000;
-
-            if (distance <= 5000) {
-                _theta = ((90 - degrees - r.azi1) * Math.PI) / 180;
-
-                _circles[name].style.transform = `translate(calc(-50% + ${
-                    r2 * Math.cos(_theta)
-                }vw), calc(-50% - ${r2 * Math.sin(_theta)}vw))`;
-                _circles[name].style.visibility = "visible";
-            }
-        });
+        _myPosition.heading = degrees;
     } else {
         // deviceorientationabsoluteイベントのalphaを補正
         degrees = compassHeading(alpha, beta, gamma);
