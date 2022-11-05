@@ -5,6 +5,7 @@ let _direction = [];
 let _data = undefined;
 let _myPosition = undefined;
 let _theta = undefined;
+let cnt = 0;
 
 function createDOM(names) {
     let circles = {};
@@ -80,14 +81,18 @@ function success(pos) {
         _distances = [..._distances, r2];
         _direction = [..._direction, r.azi1];
 
-        if (distance <= 5000) {
-            _theta = ((90 + _myPosition.heading - r.azi1) * Math.PI) / 180;
-            _circles[name].style.transform = `translate(calc(-50% + ${
-                r2 * Math.cos(_theta)
-            }vw), calc(-50% - ${r2 * Math.sin(_theta)}vw))`;
-            _circles[name].style.visibility = "visible";
-        }
+        // if (distance <= 5000) {
+        //     _theta = ((90 + _myPosition.heading - r.azi1) * Math.PI) / 180;
+        //     _circles[name].style.transform = `translate(calc(-50% + ${
+        //         r2 * Math.cos(_theta)
+        //     }vw), calc(-50% - ${r2 * Math.sin(_theta)}vw))`;
+        //     _circles[name].style.visibility = "visible";
+        // }
     });
+
+    const $compass = document.querySelector("#compass");
+    $compass.textContent = "更新 : " + cnt;
+    cnt++;
 }
 
 function error(err) {
@@ -142,19 +147,22 @@ function orientation(event) {
     if (os == "iphone") {
         // webkitCompasssHeading値を採用
         degrees = event.webkitCompassHeading;
-        const $compass = document.querySelector("#compass");
-        $compass.textContent = degrees;
         _myPosition.heading = degrees;
 
         if (_distances.length === 0) return;
 
         _distances.forEach((distance, i) => {
-            _theta =
-                ((90 + _myPosition.heading - _direction[i]) * Math.PI) / 180;
-            _circles[_ruinNames[i]].style.transform = `translate(calc(-50% + ${
-                distance * Math.cos(_theta)
-            }vw), calc(-50% - ${distance * Math.sin(_theta)}vw))`;
-            _circles[_ruinNames[i]].style.visibility = "visible";
+            if (42.5 - 1.5 >= distance) {
+                _theta =
+                    ((90 + _myPosition.heading - _direction[i]) * Math.PI) /
+                    180;
+                _circles[
+                    _ruinNames[i]
+                ].style.transform = `translate(calc(-50% + ${
+                    distance * Math.cos(_theta)
+                }vw), calc(-50% - ${distance * Math.sin(_theta)}vw))`;
+                _circles[_ruinNames[i]].style.visibility = "visible";
+            }
         });
     } else {
         // deviceorientationabsoluteイベントのalphaを補正
