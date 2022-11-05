@@ -1,5 +1,6 @@
 let _circles = {};
-let _ruinNames = [];
+let _ruinNames = undefined;
+let _distances = [];
 let _data = undefined;
 let _myPosition = undefined;
 let _theta = undefined;
@@ -73,7 +74,9 @@ function success(pos) {
             _data[name].longitude
         );
         const distance = r.s12.toFixed(3);
+
         const r2 = (distance * (42.5 - 1.5)) / 5000;
+        _distances = [..._distances, r2];
 
         if (distance <= 5000) {
             _theta = ((90 + _myPosition.heading - r.azi1) * Math.PI) / 180;
@@ -140,6 +143,16 @@ function orientation(event) {
         const $compass = document.querySelector("#compass");
         $compass.textContent = degrees;
         _myPosition.heading = degrees;
+
+        _distances.forEach((distance, i) => {
+            _theta =
+                ((90 + _myPosition.heading - _myPosition.azimuth) * Math.PI) /
+                180;
+            _circles[ruinNames[i]].style.transform = `translate(calc(-50% + ${
+                distance * Math.cos(_theta)
+            }vw), calc(-50% - ${distance * Math.sin(_theta)}vw))`;
+            _circles[ruinNames[i]].style.visibility = "visible";
+        });
     } else {
         // deviceorientationabsoluteイベントのalphaを補正
         degrees = compassHeading(alpha, beta, gamma);
