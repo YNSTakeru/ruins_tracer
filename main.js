@@ -1,6 +1,7 @@
 let _circles = {};
 let _ruinNames = undefined;
 let _distances = [];
+let _direction = [];
 let _data = undefined;
 let _myPosition = undefined;
 let _theta = undefined;
@@ -77,6 +78,7 @@ function success(pos) {
 
         const r2 = (distance * (42.5 - 1.5)) / 5000;
         _distances = [..._distances, r2];
+        _direction = [..._direction, r.azi1];
 
         if (distance <= 5000) {
             _theta = ((90 + _myPosition.heading - r.azi1) * Math.PI) / 180;
@@ -148,8 +150,7 @@ function orientation(event) {
 
         _distances.forEach((distance, i) => {
             _theta =
-                ((90 + _myPosition.heading - _myPosition.azimuth) * Math.PI) /
-                180;
+                ((90 + _myPosition.heading - _direction[i]) * Math.PI) / 180;
             _circles[_ruinNames[i]].style.transform = `translate(calc(-50% + ${
                 distance * Math.cos(_theta)
             }vw), calc(-50% - ${distance * Math.sin(_theta)}vw))`;
