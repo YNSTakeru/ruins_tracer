@@ -144,6 +144,8 @@ function orientation(event) {
         $compass.textContent = degrees;
         _myPosition.heading = degrees;
 
+        if (_distances.length === 0) return;
+
         _distances.forEach((distance, i) => {
             _theta =
                 ((90 + _myPosition.heading - _myPosition.azimuth) * Math.PI) /
