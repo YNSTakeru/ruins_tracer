@@ -63,9 +63,6 @@ function success(pos) {
         heading: crd.heading,
     };
 
-    const $compass = document.getElementById("compass");
-    $compass.textContent = _myPosition.heading;
-
     _updateCount = (_updateCount + 1) % 10;
 
     // _ruinNames.forEach((name) => {
@@ -112,9 +109,10 @@ function error(err) {
                 );
                 const distance = r.s12.toFixed(3);
                 const r2 = (distance * (42.5 - 1.5)) / 5000;
-                const theta = ((90 - r.azi1) * Math.PI) / 180;
-
-                if (distance <= 5000) {
+                let theta;
+                if (distance <= 5000 && _myPosition.heading) {
+                    theta =
+                        ((90 - _myPosition.heading - r.azi1) * Math.PI) / 180;
                     _circles[name].style.transform = `translate(calc(-50% + ${
                         r2 * Math.cos(theta)
                     }vw), calc(-50% - ${r2 * Math.sin(theta)}vw))`;
