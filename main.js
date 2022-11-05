@@ -100,6 +100,12 @@ function error(err) {
             let geod = geodesic.Geodesic.WGS84,
                 r;
 
+            const $compass = document.getElementById("compass");
+            $compass.textContent = _myPosition.heading;
+            if (!_myPosition.heading) {
+                $compass.textContent = "データ未取得";
+            }
+
             _ruinNames.forEach((name) => {
                 r = geod.Inverse(
                     _myPosition.latitude,
@@ -110,6 +116,7 @@ function error(err) {
                 const distance = r.s12.toFixed(3);
                 const r2 = (distance * (42.5 - 1.5)) / 5000;
                 let theta;
+
                 if (distance <= 5000 && _myPosition.heading) {
                     theta =
                         ((90 - _myPosition.heading - r.azi1) * Math.PI) / 180;
