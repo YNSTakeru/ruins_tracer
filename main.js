@@ -82,9 +82,9 @@ function success(pos) {
         _direction = [..._direction, r.azi1];
     });
 
-    const $compass = document.querySelector("#compass");
-    $compass.textContent = "更新 : " + _distances;
-    cnt++;
+    // const $compass = document.querySelector("#compass");
+    // $compass.textContent = "更新 : " + cnt;
+    // cnt++;
 }
 
 function error(err) {
@@ -160,6 +160,9 @@ function myOrientation(event) {
                 _circles[_ruinNames[i]].style.visibility = "visible";
             }
         });
+
+        const $compass = document.querySelector("#compass");
+        $compass.textContent = "更新 : " + cnt + " " + _distances;
     } else {
         // deviceorientationabsoluteイベントのalphaを補正
         degrees = compassHeading(alpha, beta, gamma);
