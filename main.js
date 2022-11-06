@@ -80,18 +80,10 @@ function success(pos) {
         const r2 = (distance * (42.5 - 1.5)) / 5000;
         _distances = [..._distances, r2];
         _direction = [..._direction, r.azi1];
-
-        // if (distance <= 5000) {
-        //     _theta = ((90 + _myPosition.heading - r.azi1) * Math.PI) / 180;
-        //     _circles[name].style.transform = `translate(calc(-50% + ${
-        //         r2 * Math.cos(_theta)
-        //     }vw), calc(-50% - ${r2 * Math.sin(_theta)}vw))`;
-        //     _circles[name].style.visibility = "visible";
-        // }
     });
 
     const $compass = document.querySelector("#compass");
-    $compass.textContent = "更新 : " + cnt;
+    $compass.textContent = "更新 : " + _distances;
     cnt++;
 }
 
@@ -128,16 +120,20 @@ function init() {
             .querySelector("#permit")
             .addEventListener("click", permitDeviceOrientationForSafari);
 
-        window.addEventListener("deviceorientation", orientation, true);
+        window.addEventListener("deviceorientation", myOrientation, true);
     } else if (os == "android") {
-        window.addEventListener("deviceorientationabsolute", orientation, true);
+        window.addEventListener(
+            "deviceorientationabsolute",
+            myOrientation,
+            true
+        );
     } else {
         window.alert("PC未対応サンプル");
     }
 }
 
 // ジャイロスコープと地磁気をセンサーから取得
-function orientation(event) {
+function myOrientation(event) {
     let absolute = event.absolute;
     let alpha = event.alpha;
     let beta = event.beta;
@@ -147,9 +143,9 @@ function orientation(event) {
     if (os == "iphone") {
         // webkitCompasssHeading値を採用
         degrees = event.webkitCompassHeading;
-        _myPosition.heading = degrees;
 
         if (_distances.length === 0) return;
+        _myPosition.heading = degrees;
 
         _distances.forEach((distance, i) => {
             if (42.5 - 1.5 >= distance) {
