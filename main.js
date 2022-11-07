@@ -186,6 +186,9 @@ function myOrientation(event) {
 
         const $compass = document.querySelector("#compass");
         $compass.textContent = "更新 : " + cnt + " " + _distances;
+
+        navigator.geolocation.getCurrentPosition(success, error, options);
+
         cnt++;
     } else {
         // deviceorientationabsoluteイベントのalphaを補正
