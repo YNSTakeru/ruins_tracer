@@ -99,16 +99,16 @@ function error(err) {
     _data = data;
     _ruinNames = ruinNames;
     _circles = createDOM(ruinNames);
-    update();
+    // update();
 })();
 
 const update = () => {
     if (_distances.length === 0) requestAnimationFrame(update);
 
     // _myPosition.heading = _degrees;
-    const $compass = document.querySelector("#compass");
+    // const $compass = document.querySelector("#compass");
 
-    $compass.textContent = _degrees;
+    // $compass.textContent = _degrees;
 
     // _distances.forEach((distance, i) => {
     //     if (42.5 - 1.5 >= distance) {
@@ -185,8 +185,8 @@ function myOrientation(event) {
         //     }
         // });
 
-        // const $compass = document.querySelector("#compass");
-        // $compass.textContent = "更新 : " + cnt + " " + _distances;
+        const $compass = document.querySelector("#compass");
+        $compass.textContent = "更新 : " + cnt + " " + _distances;
     } else {
         // deviceorientationabsoluteイベントのalphaを補正
         degrees = compassHeading(alpha, beta, gamma);
