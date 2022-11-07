@@ -57,9 +57,9 @@
     width: 85vw;
     height: auto;
     position: absolute;
-    top: calc(50% + 42.5vw);
+    bottom: 20%;
     left: 50%;
-    transform: translate(-50%, 40%);
+    transform: translate(-50%, 0);
     font-size: 3rem;
     text-align: center;
     vertical-align: middle;
