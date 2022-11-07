@@ -93,7 +93,8 @@ function error(err) {
 }
 
 (async () => {
-    navigator.geolocation.watchPosition(success, error, options);
+    // watchPosition
+    navigator.geolocation.getCurrentPosition(success, error, options);
 
     const { data, ruinNames } = await getData();
     _data = data;
