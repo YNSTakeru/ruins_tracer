@@ -90,9 +90,7 @@ function success(pos) {
         if (_minDistance === distance) {
             document.querySelector(
                 ".dli-arrow-right"
-            ).style.transform = `translate(-50%, -50%) rotate(${
-                _degrees + 90
-            }deg)`;
+            ).style.transform = `translate(-50%, -50%) rotate(${_degrees}deg)`;
         }
 
         document.querySelector(".distance").textContent =
