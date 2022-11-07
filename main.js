@@ -82,6 +82,16 @@ function success(pos) {
         const r2 = (distance * (42.5 - 1.5)) / 5000;
         _distances = [..._distances, r2];
         _direction = [..._direction, r.azi1];
+
+        if (_degrees === undefined) return;
+
+        if (42.5 - 1.5 >= distance) {
+            _theta = ((90 + _degrees - _direction[i]) * Math.PI) / 180;
+            _circles[_ruinNames[i]].style.transform = `translate(calc(-50% + ${
+                distance * Math.cos(_theta)
+            }vw), calc(-50% - ${distance * Math.sin(_theta)}vw))`;
+            _circles[_ruinNames[i]].style.visibility = "visible";
+        }
     });
 
     const $compass = document.querySelector("#compass");
