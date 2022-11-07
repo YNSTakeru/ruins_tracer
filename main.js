@@ -87,6 +87,14 @@ function success(pos) {
 
         _minDistance = _minDistance > distance ? distance : _minDistance;
 
+        if (_minDistance === distance) {
+            document.querySelector(
+                ".dli-arrow-right"
+            ).style.transform = `translate(-50%, -50%) rotate(${
+                _degrees - 90
+            }deg)`;
+        }
+
         document.querySelector(".distance").textContent =
             Math.floor(_minDistance) + "m";
 

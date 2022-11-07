@@ -31,10 +31,9 @@
 
 .center__circle {
     position: absolute;
-    border-radius: 100%;
-    width: 5vw;
-    height: 5vw;
-    background-color: gray;
+    border-right: 3vw solid transparent;
+    border-bottom: 4.2426vw solid red;
+    border-left: 3vw solid transparent;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -63,4 +62,33 @@
     font-size: 3rem;
     text-align: center;
     vertical-align: middle;
+}
+
+.dli-arrow-right {
+    display: inline-block;
+    vertical-align: middle;
+    color: red;
+    line-height: 1;
+    position: relative;
+    width: 4em;
+    height: 0.22em;
+    background: currentColor;
+    top: -6vh;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.dli-arrow-right::before {
+    content: "";
+    width: 1.65em;
+    height: 1.65em;
+    border: 0.4em solid currentColor;
+    border-left: 0;
+    border-bottom: 0;
+    transform: rotate(45deg);
+    transform-origin: top right;
+    position: absolute;
+    top: 50%;
+    right: -0.05em;
+    box-sizing: border-box;
 }
