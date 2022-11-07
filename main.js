@@ -196,9 +196,9 @@ function myOrientation(event) {
         //     }
         // });
 
-        const $compass = document.querySelector("#compass");
-        $compass.textContent = "更新 : " + cnt + " " + _distances;
-        cnt++;
+        // const $compass = document.querySelector("#compass");
+        // $compass.textContent = "更新 : " + cnt + " " + _distances;
+        // cnt++;
     } else {
         // deviceorientationabsoluteイベントのalphaを補正
         degrees = compassHeading(alpha, beta, gamma);
