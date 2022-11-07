@@ -184,21 +184,21 @@ function myOrientation(event) {
         if (_distances.length === 0) return;
         // _myPosition.heading = degrees;
 
-        // _distances.forEach((distance, i) => {
-        //     if (42.5 - 1.5 >= distance) {
-        //         _theta = ((90 + _degrees - _direction[i]) * Math.PI) / 180;
-        //         _circles[
-        //             _ruinNames[i]
-        //         ].style.transform = `translate(calc(-50% + ${
-        //             distance * Math.cos(_theta)
-        //         }vw), calc(-50% - ${distance * Math.sin(_theta)}vw))`;
-        //         _circles[_ruinNames[i]].style.visibility = "visible";
-        //     }
-        // });
+        _distances.forEach((distance, i) => {
+            if (42.5 - 1.5 >= distance) {
+                _theta = ((90 + _degrees - _direction[i]) * Math.PI) / 180;
+                _circles[
+                    _ruinNames[i]
+                ].style.transform = `translate(calc(-50% + ${
+                    distance * Math.cos(_theta)
+                }vw), calc(-50% - ${distance * Math.sin(_theta)}vw))`;
+                _circles[_ruinNames[i]].style.visibility = "visible";
+            }
+        });
 
-        // const $compass = document.querySelector("#compass");
-        // $compass.textContent = "更新 : " + cnt + " " + _distances;
-        // cnt++;
+        const $compass = document.querySelector("#compass");
+        $compass.textContent = "更新 : " + cnt + " " + _distances;
+        cnt++;
     } else {
         // deviceorientationabsoluteイベントのalphaを補正
         degrees = compassHeading(alpha, beta, gamma);
