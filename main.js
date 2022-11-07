@@ -85,12 +85,12 @@ function success(pos) {
 
         if (_degrees === undefined) return;
 
-        if (42.5 - 1.5 >= distance) {
-            _theta = ((90 + _degrees - _direction[i]) * Math.PI) / 180;
-            _circles[_ruinNames[i]].style.transform = `translate(calc(-50% + ${
-                distance * Math.cos(_theta)
-            }vw), calc(-50% - ${distance * Math.sin(_theta)}vw))`;
-            _circles[_ruinNames[i]].style.visibility = "visible";
+        if (42.5 - 1.5 >= r2) {
+            let _theta = ((90 + _degrees - r.azi1) * Math.PI) / 180;
+            _circles[name].style.transform = `translate(calc(-50% + ${
+                r2 * Math.cos(_theta)
+            }vw), calc(-50% - ${r2 * Math.sin(_theta)}vw))`;
+            _circles[name].style.visibility = "visible";
         }
     });
 
