@@ -7,6 +7,7 @@ let _myPosition = undefined;
 let _theta = undefined;
 let cnt = 0;
 let _degrees;
+let _preTime;
 
 function createDOM(names) {
     let circles = {};
@@ -100,6 +101,8 @@ function error(err) {
     _data = data;
     _ruinNames = ruinNames;
     _circles = createDOM(ruinNames);
+    _preTime = new Date().getTime();
+
     // update();
 })();
 
@@ -187,7 +190,10 @@ function myOrientation(event) {
         const $compass = document.querySelector("#compass");
         $compass.textContent = "更新 : " + cnt + " " + _distances;
 
-        navigator.geolocation.getCurrentPosition(success, error, options);
+        if (new Date().getTime() - _preTime > 5000) {
+            navigator.geolocation.getCurrentPosition(success, error, options);
+            _preTime = new Date.getTime();
+        }
 
         cnt++;
     } else {
