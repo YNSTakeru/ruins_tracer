@@ -86,7 +86,7 @@ function success(pos) {
 
         if (_degrees === undefined) return;
 
-        if (50 >= distance) {
+        if (5000 >= distance) {
             let _theta = ((90 + _degrees - r.azi1) * Math.PI) / 180;
             _circles[name].style.transform = `translate(calc(-50% + ${
                 r2 * Math.cos(_theta)
