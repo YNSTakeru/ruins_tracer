@@ -87,16 +87,18 @@ function success(pos) {
 
         _minDistance = _minDistance > distance ? distance : _minDistance;
 
+        if (_minDistance === distance) {
+            document.querySelector(
+                ".dli-arrow-right"
+            ).style.transform = `translate(-50%, -50%) rotate(${
+                _degrees - 90
+            }deg)`;
+        }
+
         document.querySelector(".distance").textContent =
             Math.floor(_minDistance) + "m";
 
         if (_degrees === undefined) return;
-
-        if (_minDistance === distance) {
-            document.querySelector(".dli-arrow-right").style.transform = `
-    transform: translate(-50%, -50%) rotate(${_degrees - 90}deg);
-    `;
-        }
 
         if (5000 >= distance) {
             let _theta = ((90 + _degrees - r.azi1) * Math.PI) / 180;
