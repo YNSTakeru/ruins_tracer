@@ -95,9 +95,9 @@ function success(pos) {
         }
     });
 
-    const $compass = document.querySelector("#compass");
-    $compass.textContent = "更新 : " + cnt + " " + _degrees;
-    cnt++;
+    // const $compass = document.querySelector("#compass");
+    // $compass.textContent = "更新 : " + cnt + " " + _degrees;
+    // cnt++;
 }
 
 function error(err) {
@@ -196,8 +196,8 @@ function myOrientation(event) {
             }
         });
 
-        // const $compass = document.querySelector("#compass");
-        // $compass.textContent = "更新 : " + cnt + " " + _distances;
+        const $compass = document.querySelector("#compass");
+        $compass.textContent = "更新 : " + cnt + " " + _distances;
         cnt++;
     } else {
         // deviceorientationabsoluteイベントのalphaを補正
