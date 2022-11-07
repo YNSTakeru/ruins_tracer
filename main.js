@@ -7,7 +7,7 @@ let _myPosition = undefined;
 let _theta = undefined;
 let cnt = 0;
 let _degrees;
-let _preTime;
+let _newDegrees;
 
 function createDOM(names) {
     let circles = {};
@@ -84,9 +84,9 @@ function success(pos) {
         _direction = [..._direction, r.azi1];
     });
 
-    // const $compass = document.querySelector("#compass");
-    // $compass.textContent = "更新 : " + cnt;
-    // cnt++;
+    const $compass = document.querySelector("#compass");
+    $compass.textContent = "更新 : " + cnt + " " + _degrees;
+    cnt++;
 }
 
 function error(err) {
@@ -94,14 +94,12 @@ function error(err) {
 }
 
 (async () => {
-    // watchPosition
-    navigator.geolocation.getCurrentPosition(success, error, options);
+    navigator.geolocation.watchPosition(success, error, options);
 
     const { data, ruinNames } = await getData();
     _data = data;
     _ruinNames = ruinNames;
     _circles = createDOM(ruinNames);
-    _preTime = new Date().getTime();
 
     // update();
 })();
@@ -141,12 +139,12 @@ window.addEventListener("DOMContentLoaded", init);
 function init() {
     // 簡易的なOS判定
     os = detectOSSimply();
+
     if (os == "iphone") {
         // safari用。DeviceOrientation APIの使用をユーザに許可して貰う
         document
             .querySelector("#permit")
             .addEventListener("click", permitDeviceOrientationForSafari);
-
         window.addEventListener("deviceorientation", myOrientation, true);
     } else if (os == "android") {
         window.addEventListener(
@@ -187,14 +185,8 @@ function myOrientation(event) {
             }
         });
 
-        const $compass = document.querySelector("#compass");
-        $compass.textContent = "更新 : " + cnt + " " + _distances;
-
-        if (new Date().getTime() - _preTime > 5000) {
-            navigator.geolocation.getCurrentPosition(success, error, options);
-            _preTime = new Date.getTime();
-        }
-
+        // const $compass = document.querySelector("#compass");
+        // $compass.textContent = "更新 : " + cnt + " " + _distances;
         cnt++;
     } else {
         // deviceorientationabsoluteイベントのalphaを補正
