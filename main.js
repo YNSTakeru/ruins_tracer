@@ -86,8 +86,6 @@ function success(pos) {
         _distances = [..._distances, r2];
         _direction = [..._direction, r.azi1];
 
-        _minDistance = _minDistance > distance ? distance : _minDistance;
-
         if (_minDistance > distance) {
             _minDistance = distance;
             _minDegrees = r.azi1;
