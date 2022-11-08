@@ -87,6 +87,11 @@ function success(pos) {
 
         _minDistance = _minDistance > distance ? distance : _minDistance;
 
+        document.querySelector(".distance").textContent =
+            Math.floor(_minDistance) + "m";
+
+        if (_degrees === undefined) return;
+
         if (_minDistance === distance) {
             document.querySelector(
                 ".dli-arrow-right"
@@ -94,11 +99,6 @@ function success(pos) {
                 +_degrees + r.azi1 - 90
             }deg)`;
         }
-
-        document.querySelector(".distance").textContent =
-            Math.floor(_minDistance) + "m";
-
-        if (_degrees === undefined) return;
 
         if (5000 >= distance) {
             let _theta = ((90 + _degrees - r.azi1) * Math.PI) / 180;
@@ -195,7 +195,7 @@ function myOrientation(event) {
         degrees = event.webkitCompassHeading;
         _degrees = degrees;
 
-        if (_distances.length === 0) return;
+        // if (_distances.length === 0) return;
         // _myPosition.heading = degrees;
 
         // _distances.forEach((distance, i) => {
@@ -210,9 +210,9 @@ function myOrientation(event) {
         //     }
         // });
 
-        const $compass = document.querySelector("#compass");
-        $compass.textContent = "更新 : " + cnt + " " + _distances;
-        cnt++;
+        // const $compass = document.querySelector("#compass");
+        // $compass.textContent = "更新 : " + cnt + " " + _distances;
+        // cnt++;
     } else {
         // deviceorientationabsoluteイベントのalphaを補正
         degrees = compassHeading(alpha, beta, gamma);
