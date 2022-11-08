@@ -92,13 +92,13 @@ function success(pos) {
 
         if (_degrees === undefined) return;
 
-        if (_minDistance === distance) {
-            document.querySelector(
-                ".dli-arrow-right"
-            ).style.transform = `translate(-50%, -50%) rotate(${
-                +_degrees + r.azi1 - 90
-            }deg)`;
-        }
+        // if (_minDistance === distance) {
+        //     document.querySelector(
+        //         ".dli-arrow-right"
+        //     ).style.transform = `translate(-50%, -50%) rotate(${
+        //         +_degrees + r.azi1 - 90
+        //     }deg)`;
+        // }
 
         if (5000 >= distance) {
             let _theta = ((90 + _degrees - r.azi1) * Math.PI) / 180;
@@ -108,6 +108,10 @@ function success(pos) {
             _circles[name].style.visibility = "visible";
         }
     });
+
+    document.querySelector(
+        ".dli-arrow-right"
+    ).style.transform = `translate(-50%, -50%) rotate(${+_degrees - 90}deg)`;
 
     // const $compass = document.querySelector("#compass");
     // $compass.textContent = "更新 : " + cnt + " " + _degrees;
