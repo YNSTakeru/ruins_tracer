@@ -115,6 +115,7 @@ function success(pos) {
         }
     });
 
+    if (_minDegrees === undefined) return;
     document.querySelector(
         ".dli-arrow-right"
     ).style.transform = `translate(-50%, -50%) rotate(${_minDegrees}deg)`;
