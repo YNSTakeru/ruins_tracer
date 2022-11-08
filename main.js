@@ -113,10 +113,11 @@ function success(pos) {
         }
     });
 
-    if (_minDegrees === undefined) return;
-    document.querySelector(
-        ".dli-arrow-right"
-    ).style.transform = `translate(-50%, -50%) rotate(${_minDegrees}deg)`;
+    console.log(_minDegrees);
+
+    if (_minDegrees === undefined || _degrees === undefined) {
+    }
+    return;
 
     // const $compass = document.querySelector("#compass");
     // $compass.textContent = "更新 : " + cnt + " " + _degrees;
