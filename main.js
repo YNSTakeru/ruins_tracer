@@ -111,7 +111,7 @@ function success(pos) {
 
     document.querySelector(
         ".dli-arrow-right"
-    ).style.transform = `translate(-50%, -50%) rotate(${+_degrees - 90}deg)`;
+    ).style.transform = `translate(-50%, -50%) rotate(${+_degrees}deg)`;
 
     // const $compass = document.querySelector("#compass");
     // $compass.textContent = "更新 : " + cnt + " " + _degrees;
