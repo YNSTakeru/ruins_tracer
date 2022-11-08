@@ -9,6 +9,7 @@ let cnt = 0;
 let _degrees;
 let _newDegrees;
 let _minDistance = Infinity;
+let _minDegrees = Infinity;
 
 function createDOM(names) {
     let circles = {};
@@ -87,6 +88,11 @@ function success(pos) {
 
         _minDistance = _minDistance > distance ? distance : _minDistance;
 
+        if (_minDistance > distance) {
+            _minDistance = distance;
+            _minDegrees = r.azi1;
+        }
+
         document.querySelector(".distance").textContent =
             Math.floor(_minDistance) + "m";
 
@@ -111,7 +117,7 @@ function success(pos) {
 
     document.querySelector(
         ".dli-arrow-right"
-    ).style.transform = `translate(-50%, -50%) rotate(${_degrees}deg)`;
+    ).style.transform = `translate(-50%, -50%) rotate(${_minDegrees}deg)`;
 
     // const $compass = document.querySelector("#compass");
     // $compass.textContent = "更新 : " + cnt + " " + _degrees;
