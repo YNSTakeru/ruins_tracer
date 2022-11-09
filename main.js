@@ -74,8 +74,8 @@ function success(pos) {
 
     _ruinNames.forEach((name) => {
         r = geod.Inverse(
-            _myPosition.latitude,
-            _myPosition.longitude,
+            _myPosition.latitude + cnt,
+            _myPosition.longitude + cnt,
             _data[name].latitude,
             _data[name].longitude
         );
@@ -203,6 +203,7 @@ function myOrientation(event) {
                 _circles[_ruinNames[i]].style.visibility = "visible";
             }
         });
+        cnt++;
     } else {
         // deviceorientationabsoluteイベントのalphaを補正
         degrees = compassHeading(alpha, beta, gamma);
