@@ -113,6 +113,7 @@ function success(pos) {
         //     }vw), calc(-50% - ${r2 * Math.sin(_theta)}vw))`;
         //     _circles[name].style.visibility = "visible";
         // }
+        _distances = [];
     });
 
     if (_minDegrees === undefined || _degrees === undefined) {
