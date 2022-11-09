@@ -113,7 +113,6 @@ function success(pos) {
         //     }vw), calc(-50% - ${r2 * Math.sin(_theta)}vw))`;
         //     _circles[name].style.visibility = "visible";
         // }
-        _distances = [];
     });
 
     if (_minDegrees === undefined || _degrees === undefined) {
@@ -188,6 +187,8 @@ function myOrientation(event) {
 
         const $compass = document.querySelector("#compass");
         $compass.textContent = _distances;
+
+        _distances = [];
 
         // _distances.forEach((distance, i) => {
         //     if (5000 >= distance) {
