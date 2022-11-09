@@ -155,7 +155,7 @@ function init() {
         document
             .querySelector("#permit")
             .addEventListener("click", permitDeviceOrientationForSafari);
-        window.addEventListener("deviceorientation", myOrientation, true);
+        // window.addEventListener("deviceorientation", myOrientation, true);
     } else if (os == "android") {
         window.addEventListener(
             "deviceorientationabsolute",
@@ -282,7 +282,11 @@ function permitDeviceOrientationForSafari() {
             if (response === "granted") {
                 document.querySelector("#compass").textContent =
                     detectDirection;
-                window.addEventListener("deviceorientation", detectDirection);
+                window.addEventListener(
+                    "deviceorientation",
+                    myOrientation,
+                    true
+                );
             }
         })
         .catch(console.error);
