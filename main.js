@@ -186,7 +186,6 @@ function myOrientation(event) {
         _degrees = degrees;
 
         if (_distances.length === 0) return;
-        _myPosition.heading = degrees;
 
         _distances.forEach((distance, i) => {
             if (5000 >= distance) {
@@ -203,7 +202,8 @@ function myOrientation(event) {
         });
 
         const $compass = document.querySelector("#compass");
-        $compass.textContent = _degrees;
+        $compass.textContent = cnt;
+        cnt++;
     } else {
         // deviceorientationabsoluteイベントのalphaを補正
         degrees = compassHeading(alpha, beta, gamma);
