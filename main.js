@@ -187,6 +187,9 @@ function myOrientation(event) {
 
         if (_distances.length === 0) return;
 
+        const $compass = document.querySelector("#compass");
+        $compass.textContent = _degrees;
+
         _distances.forEach((distance, i) => {
             if (5000 >= distance) {
                 const r2 = (distance * (42.5 - 1.5)) / 5000;
@@ -200,10 +203,6 @@ function myOrientation(event) {
                 _circles[_ruinNames[i]].style.visibility = "visible";
             }
         });
-
-        const $compass = document.querySelector("#compass");
-        $compass.textContent = cnt;
-        cnt++;
     } else {
         // deviceorientationabsoluteイベントのalphaを補正
         degrees = compassHeading(alpha, beta, gamma);
