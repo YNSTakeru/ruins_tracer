@@ -196,9 +196,8 @@ function myOrientation(event) {
         //     }
         // });
 
-        // const $compass = document.querySelector("#compass");
-        // $compass.textContent = "更新 : " + cnt + " " + _distances;
-        // cnt++;
+        const $compass = document.querySelector("#compass");
+        $compass.textContent = _degrees;
     } else {
         // deviceorientationabsoluteイベントのalphaを補正
         degrees = compassHeading(alpha, beta, gamma);
@@ -280,8 +279,6 @@ function permitDeviceOrientationForSafari() {
     DeviceOrientationEvent.requestPermission()
         .then((response) => {
             if (response === "granted") {
-                document.querySelector("#compass").textContent =
-                    detectDirection;
                 window.addEventListener(
                     "deviceorientation",
                     myOrientation,
