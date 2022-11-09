@@ -74,8 +74,8 @@ function success(pos) {
 
     _ruinNames.forEach((name) => {
         r = geod.Inverse(
-            _myPosition.latitude + cnt,
-            _myPosition.longitude + cnt,
+            _myPosition.latitude,
+            _myPosition.longitude,
             _data[name].latitude,
             _data[name].longitude
         );
@@ -114,8 +114,6 @@ function success(pos) {
         //     _circles[name].style.visibility = "visible";
         // }
     });
-
-    cnt++;
 
     if (_minDegrees === undefined || _degrees === undefined) {
     }
@@ -203,7 +201,6 @@ function myOrientation(event) {
                 _circles[_ruinNames[i]].style.visibility = "visible";
             }
         });
-        cnt++;
     } else {
         // deviceorientationabsoluteイベントのalphaを補正
         degrees = compassHeading(alpha, beta, gamma);
