@@ -83,7 +83,7 @@ function success(pos) {
 
         const r2 = (distance * (42.5 - 1.5)) / 5000;
 
-        _distances = [..._distances, r2];
+        _distances = [..._distances, distance];
         _direction = [..._direction, r.azi1];
 
         if (_minDistance > distance) {
@@ -185,20 +185,22 @@ function myOrientation(event) {
         degrees = event.webkitCompassHeading;
         _degrees = degrees;
 
-        // if (_distances.length === 0) return;
-        // _myPosition.heading = degrees;
+        if (_distances.length === 0) return;
+        _myPosition.heading = degrees;
 
-        // _distances.forEach((distance, i) => {
-        //     if (42.5 - 1.5 >= distance) {
-        //         _theta = ((90 + _degrees - _direction[i]) * Math.PI) / 180;
-        //         _circles[
-        //             _ruinNames[i]
-        //         ].style.transform = `translate(calc(-50% + ${
-        //             distance * Math.cos(_theta)
-        //         }vw), calc(-50% - ${distance * Math.sin(_theta)}vw))`;
-        //         _circles[_ruinNames[i]].style.visibility = "visible";
-        //     }
-        // });
+        _distances.forEach((distance, i) => {
+            if (5000 >= distance) {
+                const r2 = (distance * (42.5 - 1.5)) / 5000;
+
+                _theta = ((90 + _degrees - _direction[i]) * Math.PI) / 180;
+                _circles[
+                    _ruinNames[i]
+                ].style.transform = `translate(calc(-50% + ${
+                    r2 * Math.cos(_theta)
+                }vw), calc(-50% - ${r2 * Math.sin(_theta)}vw))`;
+                _circles[_ruinNames[i]].style.visibility = "visible";
+            }
+        });
 
         const $compass = document.querySelector("#compass");
         $compass.textContent = _degrees;
