@@ -74,8 +74,8 @@ function success(pos) {
 
     _ruinNames.forEach((name) => {
         r = geod.Inverse(
-            _myPosition.latitude + cnt,
-            _myPosition.longitude + cnt,
+            _myPosition.latitude,
+            _myPosition.longitude,
             _data[name].latitude,
             _data[name].longitude
         );
