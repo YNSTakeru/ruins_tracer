@@ -279,9 +279,9 @@ function detectOSSimply() {
 function permitDeviceOrientationForSafari() {
     DeviceOrientationEvent.requestPermission()
         .then((response) => {
-            document.querySelector("#compass").textContent = response;
-
             if (response === "granted") {
+                document.querySelector("#compass").textContent =
+                    detectDirection;
                 window.addEventListener("deviceorientation", detectDirection);
             }
         })
