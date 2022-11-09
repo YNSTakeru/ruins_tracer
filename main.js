@@ -113,8 +113,6 @@ function success(pos) {
         }
     });
 
-    console.log(_minDegrees);
-
     if (_minDegrees === undefined || _degrees === undefined) {
     }
     return;
@@ -135,30 +133,7 @@ function error(err) {
     _data = data;
     _ruinNames = ruinNames;
     _circles = createDOM(ruinNames);
-
-    // update();
 })();
-
-const update = () => {
-    if (_distances.length === 0) requestAnimationFrame(update);
-
-    // _myPosition.heading = _degrees;
-    // const $compass = document.querySelector("#compass");
-
-    // $compass.textContent = _degrees;
-
-    // _distances.forEach((distance, i) => {
-    //     if (42.5 - 1.5 >= distance) {
-    //         _theta = ((90 + _degrees - _direction[i]) * Math.PI) / 180;
-    //         _circles[_ruinNames[i]].style.transform = `translate(calc(-50% + ${
-    //             distance * Math.cos(_theta)
-    //         }vw), calc(-50% - ${distance * Math.sin(_theta)}vw))`;
-    //         _circles[_ruinNames[i]].style.visibility = "visible";
-    //     }
-    // });
-
-    requestAnimationFrame(update);
-};
 
 function disableScroll(event) {
     event.preventDefault();
@@ -305,6 +280,7 @@ function permitDeviceOrientationForSafari() {
         .then((response) => {
             if (response === "granted") {
                 window.addEventListener("deviceorientation", detectDirection);
+                document.querySelector("#compass").textContent = "やぁ";
             }
         })
         .catch(console.error);
