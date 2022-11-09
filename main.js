@@ -164,6 +164,7 @@ function init() {
         );
     } else {
         window.alert("PC未対応サンプル");
+        document.addEventListener("click", permitDeviceOrientationForSafari);
     }
 }
 
@@ -276,11 +277,12 @@ function detectOSSimply() {
 }
 
 function permitDeviceOrientationForSafari() {
+    document.querySelector("#compass").textContent = "やぁ";
+
     DeviceOrientationEvent.requestPermission()
         .then((response) => {
             if (response === "granted") {
                 window.addEventListener("deviceorientation", detectDirection);
-                document.querySelector("#compass").textContent = "やぁ";
             }
         })
         .catch(console.error);
