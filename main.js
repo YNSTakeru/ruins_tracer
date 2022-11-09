@@ -277,10 +277,10 @@ function detectOSSimply() {
 }
 
 function permitDeviceOrientationForSafari() {
-    document.querySelector("#compass").textContent = "やぁ";
-
     DeviceOrientationEvent.requestPermission()
         .then((response) => {
+            document.querySelector("#compass").textContent = response;
+
             if (response === "granted") {
                 window.addEventListener("deviceorientation", detectDirection);
             }
