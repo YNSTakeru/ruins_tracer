@@ -74,8 +74,8 @@ function success(pos) {
 
     _ruinNames.forEach((name) => {
         r = geod.Inverse(
-            _myPosition.latitude,
-            _myPosition.longitude,
+            _myPosition.latitude + cnt,
+            _myPosition.longitude + cnt,
             _data[name].latitude,
             _data[name].longitude
         );
@@ -93,6 +93,8 @@ function success(pos) {
 
         document.querySelector(".distance").textContent =
             Math.floor(_minDistance) + "m";
+
+        _minDistance = Infinity;
 
         if (_degrees === undefined) return;
 
@@ -112,6 +114,8 @@ function success(pos) {
             _circles[name].style.visibility = "visible";
         }
     });
+
+    cnt++;
 
     if (_minDegrees === undefined || _degrees === undefined) {
     }
