@@ -149,7 +149,7 @@ function success(pos) {
 function setupCamera() {
     const medias = {
         audio: false,
-        video: { width: screen.width, height: screen.height },
+        video: { width: screen.height, height: screen.width },
     };
     const video = document.getElementById("video");
 
