@@ -146,6 +146,23 @@ function success(pos) {
     // cnt++;
 }
 
+function setupCamera() {
+    let video;
+    let _stream;
+    navigator.mediaDevices
+        .getUserMedia({ video: true, audio: false })
+        .then(function (stream) {
+            _stream = stream;
+            video = document.getElementById("video");
+            video.src = window.URL.createObjectURL(_stream);
+            video.play();
+        })
+        .catch(function (error) {
+            console.error("mediaDevice.getUserMedia() error:", error);
+            return;
+        });
+}
+
 function error(err) {
     console.log("位置情報を正しく取得できませんでした");
 }
@@ -171,6 +188,10 @@ let os;
 window.addEventListener("DOMContentLoaded", init);
 
 function init() {
+    document
+        .querySelector(".camera")
+        .addEventListener("ontouchstart", setupCamera);
+
     // 簡易的なOS判定
     os = detectOSSimply();
 
