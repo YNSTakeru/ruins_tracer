@@ -79,15 +79,30 @@
     text-align: center;
     vertical-align: center;
 }
+.stop {
+    display: block;
+    width: 60%;
+    height: auto;
+    position: absolute;
+    bottom: 25%;
+    left: 50%;
+    transform: translate(-50%);
+    color: black;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 2rem;
+    text-align: center;
+    vertical-align: center;
+    z-index: 1000000000;
+}
 
 #video {
     display: block;
-    width: 100vw;
-    height: 100vh;
     position: absolute;
-    bottom: 0%;
-    left: 0%;
-    text-align: center;
-    vertical-align: center;
-    /* z-index: 10000; */
+    top: 0;
+    left: 0;
+}
+
+#permit {
+    z-index: 10000;
 }

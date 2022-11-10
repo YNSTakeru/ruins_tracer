@@ -147,20 +147,31 @@ function success(pos) {
 }
 
 function setupCamera() {
-    let video;
-    let _stream;
-    navigator.mediaDevices
-        .getUserMedia({ video: true, audio: false })
-        .then(function (stream) {
-            _stream = stream;
-            video = document.getElementById("video");
-            video.src = window.URL.createObjectURL(_stream);
-            video.play();
-        })
-        .catch(function (error) {
-            console.error("mediaDevice.getUserMedia() error:", error);
-            return;
+    const medias = {
+        audio: false,
+        video: { width: screen.width, height: screen.height },
+    };
+    const video = document.getElementById("video");
+    video.style.zIndex = 10000;
+
+    const promise = navigator.mediaDevices.getUserMedia(medias);
+
+    promise.then(successCallback).catch(errorCallback);
+
+    function successCallback(stream) {
+        video.srcObject = stream;
+        console.log(video.srcObject);
+        document.querySelector(".stop").addEventListener("click", () => {
+            stream.getVideoTracks().forEach((track) => {
+                track.stop();
+            });
+            video.style.zIndex = -10000;
         });
+    }
+
+    function errorCallback(err) {
+        alert(err);
+    }
 }
 
 function error(err) {
