@@ -64,30 +64,18 @@
     vertical-align: middle;
 }
 
-.dli-arrow-right {
-    display: inline-block;
-    vertical-align: middle;
-    color: red;
-    line-height: 1;
-    position: relative;
-    width: 4em;
-    height: 0.22em;
-    background: currentColor;
-    top: -6vh;
-    left: 50%;
-}
-
-.dli-arrow-right::before {
-    content: "";
-    width: 1.65em;
-    height: 1.65em;
-    border: 0.4em solid currentColor;
-    border-left: 0;
-    border-bottom: 0;
-    transform: rotate(45deg);
-    transform-origin: top right;
+.camera {
+    display: block;
+    width: 60%;
+    height: auto;
     position: absolute;
-    top: 50%;
-    right: -0.05em;
-    box-sizing: border-box;
+    bottom: 14%;
+    left: 50%;
+    transform: translate(-50%);
+    color: black;
+    padding: 10px 20px;
+    border-radius: 4%;
+    font-size: 2rem;
+    text-align: center;
+    vertical-align: center;
 }
