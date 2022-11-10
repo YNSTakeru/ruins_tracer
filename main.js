@@ -188,9 +188,7 @@ let os;
 window.addEventListener("DOMContentLoaded", init);
 
 function init() {
-    document
-        .querySelector(".camera")
-        .addEventListener("ontouchstart", setupCamera);
+    document.querySelector(".camera").addEventListener("click", setupCamera);
 
     // 簡易的なOS判定
     os = detectOSSimply();
