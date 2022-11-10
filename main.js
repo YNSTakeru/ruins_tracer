@@ -152,7 +152,9 @@ function setupCamera() {
         video: { width: screen.width, height: screen.height },
     };
 
-    document.querySelector(".stop").textContent = screen.height;
+    document.querySelector(
+        ".stop"
+    ).textContent = `${screen.width} x ${screen.height}`;
 
     const video = document.getElementById("video");
     video.style.zIndex = 10000;
