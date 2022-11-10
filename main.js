@@ -97,8 +97,6 @@ function success(pos) {
         document.querySelector(".distance").textContent =
             Math.floor(_minDistance) + "m";
 
-        _minDistance = Infinity;
-
         if (_degrees === undefined) return;
 
         // if (_minDistance === distance) {
@@ -117,6 +115,8 @@ function success(pos) {
         //     _circles[name].style.visibility = "visible";
         // }
     });
+
+    _minDistance = Infinity;
 
     if (_minDegrees === undefined || _degrees === undefined) {
     }
