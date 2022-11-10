@@ -11,6 +11,7 @@ let _newDegrees;
 let _minDistance = Infinity;
 let _minDegrees = Infinity;
 let _targetRuin = undefined;
+let _range = 5000;
 
 function createDOM(names) {
     let circles = {};
@@ -87,7 +88,7 @@ function success(pos) {
         );
         const distance = r.s12.toFixed(3);
 
-        const r2 = (distance * (42.5 - 1.5)) / 5000;
+        const r2 = (distance * (42.5 - 1.5)) / _range;
 
         _distances = [..._distances, distance];
         _direction = [..._direction, r.azi1];
@@ -99,22 +100,6 @@ function success(pos) {
         }
 
         if (_degrees === undefined) return;
-
-        // if (_minDistance === distance) {
-        //     document.querySelector(
-        //         ".dli-arrow-right"
-        //     ).style.transform = `translate(-50%, -50%) rotate(${
-        //         +_degrees + r.azi1 - 90
-        //     }deg)`;
-        // }
-
-        // if (5000 >= distance) {
-        //     let _theta = ((90 + _degrees - r.azi1) * Math.PI) / 180;
-        //     _circles[name].style.transform = `translate(calc(-50% + ${
-        //         r2 * Math.cos(_theta)
-        //     }vw), calc(-50% - ${r2 * Math.sin(_theta)}vw))`;
-        //     _circles[name].style.visibility = "visible";
-        // }
     });
 
     document.querySelector(".distance").textContent =
@@ -126,7 +111,31 @@ function success(pos) {
             _circles[preTargetRuin].style.backgroundColor = "yellow";
     }
 
+    if (_minDistance <= 3000) {
+        _range = 3000;
+    }
+    if (_minDistance <= 500) {
+        _range = 500;
+    }
+    if (_minDistance <= 300) {
+        _range = 300;
+    }
+    if (_minDistance <= 100) {
+        _range = 100;
+    }
+    if (_minDistance <= 50) {
+        _range = 50;
+    }
+
+    if (_minDistance <= 30) {
+        _circles[_targetRuin].style.backgroundColor = "gray";
+        cnt++;
+    }
     _minDistance = Infinity;
+
+    _ruinNames = _ruinNames.filter((name) => {
+        return _targetRuin !== name;
+    });
 
     if (_minDegrees === undefined || _degrees === undefined) {
     }
@@ -199,11 +208,11 @@ function myOrientation(event) {
         if (_distances.length === 0) return;
 
         const $compass = document.querySelector("#compass");
-        $compass.textContent = _minDistance;
+        $compass.textContent = `発見数: ${cnt} 範囲: ${_range}`;
 
         _distances.forEach((distance, i) => {
-            if (5000 >= distance) {
-                const r2 = (distance * (42.5 - 1.5)) / 5000;
+            if (_range >= distance) {
+                const r2 = (distance * (42.5 - 1.5)) / _range;
 
                 _theta = ((90 + _degrees - _direction[i]) * Math.PI) / 180;
                 _circles[
