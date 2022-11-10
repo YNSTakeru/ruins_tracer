@@ -147,16 +147,16 @@ function success(pos) {
 }
 
 function setupCamera() {
+    const video = document.getElementById("video");
     const medias = {
         audio: false,
-        video: { width: screen.width, height: screen.height },
+        video: { width: video.clientWidth, height: video.clientHeight },
     };
 
     document.querySelector(
         ".stop"
-    ).textContent = `${screen.width} x ${screen.height}`;
+    ).textContent = `${video.clientWidth} x ${video.clientHeight}`;
 
-    const video = document.getElementById("video");
     video.style.zIndex = 10000;
 
     const promise = navigator.mediaDevices.getUserMedia(medias);
