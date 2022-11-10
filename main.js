@@ -11,7 +11,7 @@ let _newDegrees;
 let _minDistance = Infinity;
 let _minDegrees = Infinity;
 let _targetRuin = undefined;
-let _range = 5000;
+let _range = 3000;
 
 function createDOM(names) {
     let circles = {};
@@ -86,7 +86,8 @@ function success(pos) {
             _data[name].latitude,
             _data[name].longitude
         );
-        const distance = r.s12.toFixed(3);
+
+        const distance = parseFloat(r.s12.toFixed(3));
 
         const r2 = (distance * (42.5 - 1.5)) / _range;
 
@@ -107,11 +108,12 @@ function success(pos) {
     document.querySelector(".distance").textContent =
         Math.floor(_minDistance) + "m";
 
-    if (preTargetRuin !== _targetRuin) {
-        _circles[_targetRuin].style.backgroundColor = "blue";
-        if (preTargetRuin) {
-            if (_circles[preTargetRuin].style.backgroundColor !== "gray")
-                _circles[preTargetRuin].style.backgroundColor = "yellow";
+    for (ruinName in _circles) {
+        if (_targetRuin === ruinName) {
+            _circles[_targetRuin].style.backgroundColor = "blue";
+        } else {
+            if (_circles[ruinName].style.backgroundColor !== "gray")
+                _circles[ruinName].style.backgroundColor = "yellow";
         }
     }
 
@@ -137,12 +139,6 @@ function success(pos) {
     }
     _minDistance = Infinity;
 
-    // _ruinNames = _ruinNames.filter((name) => {
-    //     return _targetRuin !== name;
-    // });
-
-    if (_minDegrees === undefined || _degrees === undefined) {
-    }
     return;
 
     // const $compass = document.querySelector("#compass");
@@ -185,14 +181,32 @@ function init() {
             .addEventListener("click", permitDeviceOrientationForSafari);
         // window.addEventListener("deviceorientation", myOrientation, true);
     } else if (os == "android") {
-        window.addEventListener(
-            "deviceorientationabsolute",
-            myOrientation,
-            true
-        );
+        // window.addEventListener(
+        //     "deviceorientationabsolute",
+        //     myOrientation,
+        //     true
+        // );
+        setInterval(() => {
+            _degrees = 270;
+            _distances.forEach((distance, i) => {
+                if (_range >= distance) {
+                    const r2 = (distance * (42.5 - 1.5)) / _range;
+
+                    _theta = ((90 + _degrees - _direction[i]) * Math.PI) / 180;
+                    _circles[
+                        _ruinNames[i]
+                    ].style.transform = `translate(calc(-50% + ${
+                        r2 * Math.cos(_theta)
+                    }vw), calc(-50% - ${r2 * Math.sin(_theta)}vw))`;
+                    _circles[_ruinNames[i]].style.visibility = "visible";
+                } else {
+                    _circles[_ruinNames[i]].style.visibility = "hidden";
+                }
+            });
+        }, 1000);
     } else {
         window.alert("PC未対応サンプル");
-        document.addEventListener("click", permitDeviceOrientationForSafari);
+        // document.addEventListener("click", permitDeviceOrientationForSafari);
     }
 }
 
