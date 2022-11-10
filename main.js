@@ -133,9 +133,9 @@ function success(pos) {
     }
     _minDistance = Infinity;
 
-    _ruinNames = _ruinNames.filter((name) => {
-        return _targetRuin !== name;
-    });
+    // _ruinNames = _ruinNames.filter((name) => {
+    //     return _targetRuin !== name;
+    // });
 
     if (_minDegrees === undefined || _degrees === undefined) {
     }
