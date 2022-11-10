@@ -202,6 +202,13 @@ function myOrientation(event) {
                     r2 * Math.cos(_theta)
                 }vw), calc(-50% - ${r2 * Math.sin(_theta)}vw))`;
                 _circles[_ruinNames[i]].style.visibility = "visible";
+                if (distance === _minDistance) {
+                    _circles[_ruinNames[i]].style.backgroundColor = "blue";
+                } else {
+                    _circles[_ruinNames[i]].style.backgroundColor = "yellow";
+                }
+            } else {
+                _circles[_ruinNames[i]].style.visibility = "hidden";
             }
         });
     } else {
