@@ -94,9 +94,11 @@ function success(pos) {
         _direction = [..._direction, r.azi1];
 
         if (_minDistance > distance) {
-            _minDistance = distance;
-            _minDegrees = r.azi1;
-            _targetRuin = name;
+            if (_circles[name].style.backgroundColor !== "gray") {
+                _minDistance = distance;
+                _minDegrees = r.azi1;
+                _targetRuin = name;
+            }
         }
 
         if (_degrees === undefined) return;
@@ -107,8 +109,10 @@ function success(pos) {
 
     if (preTargetRuin !== _targetRuin) {
         _circles[_targetRuin].style.backgroundColor = "blue";
-        if (preTargetRuin)
-            _circles[preTargetRuin].style.backgroundColor = "yellow";
+        if (preTargetRuin) {
+            if (_circles[preTargetRuin].style.backgroundColor !== "gray")
+                _circles[preTargetRuin].style.backgroundColor = "yellow";
+        }
     }
 
     if (_minDistance <= 3000) {
