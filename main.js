@@ -10,6 +10,7 @@ let _degrees;
 let _newDegrees;
 let _minDistance = Infinity;
 let _minDegrees = Infinity;
+let _targetRuin = undefined;
 
 function createDOM(names) {
     let circles = {};
@@ -75,6 +76,8 @@ function success(pos) {
     _distances = [];
     _direction = [];
 
+    const preTargetRuin = _targetRuin;
+
     _ruinNames.forEach((name) => {
         r = geod.Inverse(
             _myPosition.latitude,
@@ -92,10 +95,8 @@ function success(pos) {
         if (_minDistance > distance) {
             _minDistance = distance;
             _minDegrees = r.azi1;
+            _targetRuin = name;
         }
-
-        document.querySelector(".distance").textContent =
-            Math.floor(_minDistance) + "m";
 
         if (_degrees === undefined) return;
 
@@ -115,6 +116,15 @@ function success(pos) {
         //     _circles[name].style.visibility = "visible";
         // }
     });
+
+    document.querySelector(".distance").textContent =
+        Math.floor(_minDistance) + "m";
+
+    if (preTargetRuin !== _targetRuin) {
+        _circles[_targetRuin].style.backgroundColor = "blue";
+        if (preTargetRuin)
+            _circles[preTargetRuin].style.backgroundColor = "yellow";
+    }
 
     _minDistance = Infinity;
 
@@ -202,12 +212,6 @@ function myOrientation(event) {
                     r2 * Math.cos(_theta)
                 }vw), calc(-50% - ${r2 * Math.sin(_theta)}vw))`;
                 _circles[_ruinNames[i]].style.visibility = "visible";
-
-                if (distance === _minDistance) {
-                    _circles[_ruinNames[i]].style.backgroundColor = "blue";
-                } else {
-                    _circles[_ruinNames[i]].style.backgroundColor = "yellow";
-                }
             } else {
                 _circles[_ruinNames[i]].style.visibility = "hidden";
             }
