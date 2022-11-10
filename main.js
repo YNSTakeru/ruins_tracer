@@ -147,15 +147,15 @@ function success(pos) {
 }
 
 function setupCamera() {
-    const video = document.getElementById("video");
     const medias = {
         audio: false,
-        video: { width: video.clientWidth, height: video.clientHeight },
+        video: { width: screen.width, height: screen.height },
     };
+    const video = document.getElementById("video");
 
     document.querySelector(
         ".stop"
-    ).textContent = `${video.clientWidth} x ${video.clientHeight}`;
+    ).textContent = `${screen.width} x ${screen.height}`;
 
     video.style.zIndex = 10000;
 
