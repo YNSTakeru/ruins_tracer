@@ -189,7 +189,7 @@ function myOrientation(event) {
         if (_distances.length === 0) return;
 
         const $compass = document.querySelector("#compass");
-        $compass.textContent = _distances[0];
+        $compass.textContent = _minDistance;
 
         _distances.forEach((distance, i) => {
             if (5000 >= distance) {
@@ -202,6 +202,7 @@ function myOrientation(event) {
                     r2 * Math.cos(_theta)
                 }vw), calc(-50% - ${r2 * Math.sin(_theta)}vw))`;
                 _circles[_ruinNames[i]].style.visibility = "visible";
+
                 if (distance === _minDistance) {
                     _circles[_ruinNames[i]].style.backgroundColor = "blue";
                 } else {
