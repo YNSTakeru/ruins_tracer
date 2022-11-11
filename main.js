@@ -165,7 +165,11 @@ function success(pos) {
 function setupCamera() {
     const medias = {
         audio: false,
-        video: { width: screen.height, height: screen.width },
+        video: {
+            width: screen.height,
+            height: screen.width,
+            facingMode: { exact: "environment" },
+        },
     };
     const video = document.getElementById("video");
 
@@ -249,6 +253,8 @@ function init() {
         // document.addEventListener("click", permitDeviceOrientationForSafari);
     }
     if (_test) {
+        document.querySelector(".camera").style.visibility = "visible";
+
         setInterval(() => {
             _degrees = 270;
             _distances.forEach((distance, i) => {
