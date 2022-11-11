@@ -153,7 +153,7 @@ function success(pos) {
         document.querySelector(".camera").style.visibility = "hidden";
     }
 
-    document.querySelector(".camera").style.visibility = "visible";
+    // document.querySelector(".camera").style.visibility = "visible";
 
     _minDistance = Infinity;
 
@@ -188,10 +188,27 @@ function setupCamera() {
     function successCallback(stream) {
         video.srcObject = stream;
         console.log(video.srcObject);
+
         document.querySelector(".stop").style.visibility = "visible";
         document.querySelector(".camera").style.visibility = "hidden";
 
         document.querySelector(".stop").addEventListener("click", () => {
+            let canvas = document.createElement("canvas");
+            let ctx = canvas.getContext("2d");
+            let w = video.offsetWidth;
+            let h = video.offsetHeight;
+            canvas.setAttribute("width", w);
+            canvas.setAttribute("height", h);
+            ctx.drawImage(video, 0, 0, w, h);
+
+            const data = canvas.toDataURL("image/jpeg");
+
+            let element = document.createElement("a");
+            element.href = data;
+            element.download = `${_targetRuin}.jpeg`;
+            element.target = "_blank";
+            element.click();
+
             _circles[_targetRuin].style.backgroundColor = "gray";
             cnt++;
             stream.getVideoTracks().forEach((track) => {
