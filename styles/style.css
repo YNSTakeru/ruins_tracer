@@ -53,6 +53,7 @@
 
 .circle__text {
     position: absolute;
+    visibility: hidden;
 }
 
 .distance {
