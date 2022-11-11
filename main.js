@@ -192,6 +192,7 @@ function setupCamera() {
                 track.stop();
             });
             video.style.zIndex = -10000;
+            document.querySelector(".stop").style.visibility = "hidden";
         });
     }
 
