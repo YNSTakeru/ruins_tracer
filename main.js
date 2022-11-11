@@ -13,18 +13,18 @@ let _minDistance = Infinity;
 let _minDegrees = Infinity;
 let _targetRuin = undefined;
 let _range = 3000;
-let _test = true;
+let _test = false;
 
 function createDOM(names) {
     let circles = {};
     names.forEach((name, i) => {
         circles[name] = document.createElement("div");
         circles[name].className = "circle";
-        // _circlesText[name] = document.createElement("div");
-        // _circlesText[name].className = "circle__text";
-        // _circlesText[name].textContent = name;
+        _circlesText[name] = document.createElement("div");
+        _circlesText[name].className = "circle__text";
+        _circlesText[name].textContent = name;
 
-        // circles[name].appendChild(_circlesText[name]);
+        circles[name].appendChild(_circlesText[name]);
         document.querySelector(".map__circle").appendChild(circles[name]);
     });
 
