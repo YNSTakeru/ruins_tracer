@@ -1,4 +1,5 @@
 let _circles = {};
+let _circlesText = {};
 let _ruinNames = undefined;
 let _distances = [];
 let _direction = [];
@@ -12,13 +13,18 @@ let _minDistance = Infinity;
 let _minDegrees = Infinity;
 let _targetRuin = undefined;
 let _range = 3000;
+let _test = true;
 
 function createDOM(names) {
     let circles = {};
     names.forEach((name, i) => {
         circles[name] = document.createElement("div");
         circles[name].className = "circle";
+        _circlesText[name] = document.createElement("div");
+        _circlesText[name].className = "circle__text";
+        _circlesText[name].textContent = name;
 
+        circles[name].appendChild(_circlesText[name]);
         document.querySelector(".map__circle").appendChild(circles[name]);
     });
 
@@ -139,6 +145,7 @@ function success(pos) {
     } else {
         document.querySelector(".camera").style.visibility = "hidden";
     }
+
     _minDistance = Infinity;
 
     return;
@@ -229,6 +236,11 @@ function init() {
         //     myOrientation,
         //     true
         // );
+    } else {
+        window.alert("PC未対応サンプル");
+        // document.addEventListener("click", permitDeviceOrientationForSafari);
+    }
+    if (_test) {
         setInterval(() => {
             _degrees = 270;
             _distances.forEach((distance, i) => {
@@ -247,9 +259,6 @@ function init() {
                 }
             });
         }, 1000);
-    } else {
-        window.alert("PC未対応サンプル");
-        // document.addEventListener("click", permitDeviceOrientationForSafari);
     }
 }
 
@@ -269,8 +278,8 @@ function myOrientation(event) {
         if (_distances.length === 0) return;
 
         const $compass = document.querySelector("#compass");
-        // $compass.textContent = `発見数: ${cnt} 範囲: ${_range}`;
-        $compass.textContent = `${navigator.userAgent}`;
+        $compass.textContent = `発見数: ${cnt} 範囲: ${_range}`;
+        // $compass.textContent = `${navigator.userAgent}`;
 
         _distances.forEach((distance, i) => {
             if (_range >= distance) {

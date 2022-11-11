@@ -51,6 +51,10 @@
     visibility: hidden;
 }
 
+.circle__text {
+    position: absolute;
+}
+
 .distance {
     display: block;
     width: 85vw;
