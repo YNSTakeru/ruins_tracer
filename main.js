@@ -217,7 +217,6 @@ function init() {
 
     // 簡易的なOS判定
     os = detectOSSimply();
-
     if (os == "iphone") {
         // safari用。DeviceOrientation APIの使用をユーザに許可して貰う
         document
@@ -270,7 +269,8 @@ function myOrientation(event) {
         if (_distances.length === 0) return;
 
         const $compass = document.querySelector("#compass");
-        $compass.textContent = `発見数: ${cnt} 範囲: ${_range}`;
+        // $compass.textContent = `発見数: ${cnt} 範囲: ${_range}`;
+        $compass.textContent = `${navigator.userAgent}`;
 
         _distances.forEach((distance, i) => {
             if (_range >= distance) {
