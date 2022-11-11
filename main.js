@@ -136,6 +136,10 @@ function success(pos) {
     if (_minDistance <= 30) {
         _circles[_targetRuin].style.backgroundColor = "gray";
         cnt++;
+        if (document.querySelector(".stop").style.visibility !== "visible")
+            document.querySelector(".camera").style.visibility = "visible";
+    } else {
+        document.querySelector(".camera").style.visibility = "hidden";
     }
     _minDistance = Infinity;
 
@@ -153,9 +157,9 @@ function setupCamera() {
     };
     const video = document.getElementById("video");
 
-    document.querySelector(
-        ".stop"
-    ).textContent = `${screen.width} x ${screen.height}`;
+    // document.querySelector(
+    //     ".stop"
+    // ).textContent = `${screen.width} x ${screen.height}`;
 
     video.style.zIndex = 10000;
 
@@ -166,6 +170,9 @@ function setupCamera() {
     function successCallback(stream) {
         video.srcObject = stream;
         console.log(video.srcObject);
+        document.querySelector(".stop").style.visibility = "visible";
+        document.querySelector(".camera").style.visibility = "hidden";
+
         document.querySelector(".stop").addEventListener("click", () => {
             stream.getVideoTracks().forEach((track) => {
                 track.stop();
@@ -205,6 +212,8 @@ window.addEventListener("DOMContentLoaded", init);
 
 function init() {
     document.querySelector(".camera").addEventListener("click", setupCamera);
+    document.querySelector(".camera").style.visibility = "hidden";
+    document.querySelector(".stop").style.visibility = "hidden";
 
     // 簡易的なOS判定
     os = detectOSSimply();
