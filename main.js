@@ -134,8 +134,6 @@ function success(pos) {
     }
 
     if (_minDistance <= 30) {
-        _circles[_targetRuin].style.backgroundColor = "gray";
-        cnt++;
         if (document.querySelector(".stop").style.visibility !== "visible")
             document.querySelector(".camera").style.visibility = "visible";
     } else {
@@ -174,6 +172,8 @@ function setupCamera() {
         document.querySelector(".camera").style.visibility = "hidden";
 
         document.querySelector(".stop").addEventListener("click", () => {
+            _circles[_targetRuin].style.backgroundColor = "gray";
+            cnt++;
             stream.getVideoTracks().forEach((track) => {
                 track.stop();
             });
