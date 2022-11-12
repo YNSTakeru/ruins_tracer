@@ -179,7 +179,7 @@ function setupCamera() {
         video: {
             width: screen.height,
             height: screen.width,
-            // facingMode: { exact: "environment" },
+            facingMode: { exact: "environment" },
         },
     };
     const video = document.getElementById("video");
@@ -189,8 +189,6 @@ function setupCamera() {
     // ).textContent = `${screen.width} x ${screen.height}`;
 
     video.style.zIndex = 10000;
-    video.style.width = "100vw";
-    video.style.height = "100vh";
 
     const promise = navigator.mediaDevices.getUserMedia(medias);
 
