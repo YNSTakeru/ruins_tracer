@@ -31,6 +31,7 @@ function createDOM(names) {
 
     for (ruinName in _album) {
         circles[ruinName].style.backgroundColor = "gray";
+        cnt++;
     }
 
     return circles;
