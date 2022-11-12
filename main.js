@@ -314,6 +314,8 @@ function init() {
             if (document.querySelector(".album").textContent !== "閉じる") {
                 document.querySelector(".album__page").style.zIndex = 10000;
                 document.querySelector(".album").style.zIndex = 100000;
+                document.querySelector(".album__page").style.visibility =
+                    "visible";
                 document.querySelector(".album").textContent = "閉じる";
                 // ySelector(".album__page").style.visibility = "visible";
 
@@ -327,7 +329,6 @@ function init() {
                     ul.style.paddingLeft = "5vw";
                     ul.style.paddingRight = "3vw";
                     ul.style.gap = "10px";
-                    ul.style.overflow = "scroll";
                 } else ul = document.querySelector("ul");
 
                 _ruinNames.forEach((name) => {
@@ -364,6 +365,8 @@ function init() {
                 //     "hidden";
                 document.querySelector(".album").style.zIndex = 0;
                 document.querySelector(".album").textContent = "アルバム";
+                document.querySelector(".album__page").style.visibility =
+                    "hidden";
             }
         });
 
