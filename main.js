@@ -232,7 +232,8 @@ function setupCamera() {
         _stream = stream;
         video.srcObject = stream;
         console.log(video.srcObject);
-        video.style;
+        video.style.width = video.offsetWidth;
+        video.style.height = video.offsetHeight;
 
         document.querySelector(".stop").style.visibility = "visible";
         document.querySelector(".camera").style.visibility = "hidden";
