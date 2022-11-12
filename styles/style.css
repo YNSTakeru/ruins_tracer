@@ -3,6 +3,11 @@
     padding: 0;
     color: white;
     max-height: 100vh;
+    background-color: black;
+}
+
+video {
+    background-color: transparent;
 }
 
 .header__wrapper {
@@ -36,6 +41,7 @@
     border-right: 3vw solid transparent;
     border-bottom: 4.2426vw solid red;
     border-left: 3vw solid transparent;
+    background-color: transparent;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -76,6 +82,7 @@
     width: 60%;
     height: auto;
     position: absolute;
+    background-color: white;
     bottom: 14%;
     left: 50%;
     transform: translate(-50%);
@@ -88,6 +95,7 @@
 }
 .stop {
     display: block;
+    background-color: white;
     width: 60%;
     height: auto;
     position: absolute;
@@ -147,6 +155,7 @@ canvas {
 .exit {
     display: block;
     position: absolute;
+    background-color: white;
     bottom: 25%;
     left: 50%;
     transform: translate(-50%);
