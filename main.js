@@ -106,6 +106,14 @@ function success(pos) {
         _distances = [..._distances, distance];
         _direction = [..._direction, r.azi1];
 
+        if (distance <= 300) {
+            if (_circles[name].style.backgroundColor === "gray") {
+                _circlesText[name].style.visibility = "visible";
+            } else {
+                _circlesText[name].style.visibility = "hidden";
+            }
+        }
+
         if (_minDistance > distance) {
             if (_circles[name].style.backgroundColor !== "gray") {
                 _minDistance = distance;
@@ -140,8 +148,10 @@ function success(pos) {
     }
     if (_minDistance <= 300) {
         for (ruinName in _circlesText) {
-            if (_circles[ruinName].style.backgroundColor === "gray")
+            if (_circles[ruinName].style.backgroundColor === "gray") {
                 _circlesText[ruinName].style.visibility = "visible";
+                _circleText[ruinName].style.backgroundColor = "transparent";
+            }
         }
         _range = 300;
     }
@@ -180,7 +190,7 @@ function setupCamera() {
         video: {
             width: screen.height,
             height: screen.width,
-            // facingMode: { exact: "environment" },
+            facingMode: { exact: "environment" },
         },
     };
     const video = document.getElementById("video");
@@ -317,6 +327,7 @@ function init() {
                     ul.style.paddingLeft = "5vw";
                     ul.style.paddingRight = "3vw";
                     ul.style.gap = "10px";
+                    ul.style.overflow = scroll;
                 } else ul = document.querySelector("ul");
 
                 _ruinNames.forEach((name) => {
