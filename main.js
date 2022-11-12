@@ -303,6 +303,7 @@ function init() {
                 document.querySelector(".album__page").style.zIndex = 10000;
                 document.querySelector(".album").style.zIndex = 100000;
                 document.querySelector(".album").textContent = "閉じる";
+                ySelector(".album__page").style.visibility = "visible";
 
                 console.log(_ruinNames);
                 let ul;
@@ -347,6 +348,8 @@ function init() {
                 });
             } else {
                 document.querySelector(".album__page").style.zIndex = -10000;
+                document.querySelector(".album__page").style.visibility =
+                    "hidden";
                 document.querySelector(".album").style.zIndex = 0;
                 document.querySelector(".album").textContent = "アルバム";
             }
