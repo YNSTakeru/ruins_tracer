@@ -259,7 +259,7 @@ function disableScroll(event) {
     event.preventDefault();
 }
 
-document.addEventListener("touchmove", disableScroll, { passive: false });
+// document.addEventListener("touchmove", disableScroll, { passive: false });
 
 let os;
 
@@ -319,6 +319,7 @@ function init() {
 
                 _ruinNames.forEach((name) => {
                     if (!_album) return;
+
                     if (_album[name]) {
                         if (document.getElementById(name)) {
                             const li = document.getElementById(`${name}Li`);
@@ -349,6 +350,10 @@ function init() {
                 document.querySelector(".album").style.zIndex = 0;
                 document.querySelector(".album").textContent = "アルバム";
             }
+        });
+
+        document.querySelector(".reset").addEventListener("click", () => {
+            localStorage.clear();
         });
 
         // window.addEventListener("deviceorientation", myOrientation, true);
