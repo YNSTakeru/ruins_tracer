@@ -189,9 +189,8 @@ function setupCamera() {
     // ).textContent = `${screen.width} x ${screen.height}`;
 
     video.style.zIndex = 10000;
-    // video.style.width = "100vw";
-    // video.style.height = "100vh";
-    video.style.zIndex = -1000000;
+    video.style.width = "100vw";
+    video.style.height = "100vh";
 
     const promise = navigator.mediaDevices.getUserMedia(medias);
 
