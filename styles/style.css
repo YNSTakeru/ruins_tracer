@@ -116,8 +116,9 @@ video {
     position: absolute;
     top: 0%;
     left: 0%;
-    min-width: 100vw;
-    height: auto;
+    background-color: red;
+    widh: 100vw;
+    height: 100vh;
 
     /* top: 50%;
     left: 50%;
