@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     color: white;
+    max-height: 100vh;
 }
 
 .header__wrapper {

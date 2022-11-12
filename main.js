@@ -159,7 +159,7 @@ function success(pos) {
         document.querySelector(".camera").style.visibility = "hidden";
     }
 
-    // document.querySelector(".camera").style.visibility = "visible";
+    document.querySelector(".camera").style.visibility = "visible";
 
     _minDistance = Infinity;
 
@@ -179,7 +179,7 @@ function setupCamera() {
         video: {
             width: screen.height,
             height: screen.width,
-            facingMode: { exact: "environment" },
+            // facingMode: { exact: "environment" },
         },
     };
     const video = document.getElementById("video");
@@ -303,7 +303,7 @@ function init() {
                 document.querySelector(".album__page").style.zIndex = 10000;
                 document.querySelector(".album").style.zIndex = 100000;
                 document.querySelector(".album").textContent = "閉じる";
-                ySelector(".album__page").style.visibility = "visible";
+                // ySelector(".album__page").style.visibility = "visible";
 
                 console.log(_ruinNames);
                 let ul;
@@ -348,8 +348,8 @@ function init() {
                 });
             } else {
                 document.querySelector(".album__page").style.zIndex = -10000;
-                document.querySelector(".album__page").style.visibility =
-                    "hidden";
+                // document.querySelector(".album__page").style.visibility =
+                //     "hidden";
                 document.querySelector(".album").style.zIndex = 0;
                 document.querySelector(".album").textContent = "アルバム";
             }
