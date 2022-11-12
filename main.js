@@ -356,6 +356,7 @@ function init() {
                         img.setAttribute("id", `${name}Img`);
                         const ruinName = document.createElement("div");
                         ruinName.textContent = name;
+                        ruinName.style.textAlign = "center";
                         const li = document.createElement("li");
                         li.style.listStyleType = "none";
                         li.setAttribute("id", `${name}Li`);
