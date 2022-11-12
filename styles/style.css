@@ -90,7 +90,7 @@
     width: 60%;
     height: auto;
     position: absolute;
-    bottom: 25%;
+    bottom: 14%;
     left: 50%;
     transform: translate(-50%);
     color: black;
@@ -132,4 +132,37 @@ canvas {
     z-index: -100000;
     width: 100vw;
     height: 100vh;
+}
+
+.save {
+    display: block;
+    position: absolute;
+    top: 2%;
+    left: 5%;
+    z-index: -10000;
+    font-size: 1.5rem;
+}
+
+.exit {
+    display: block;
+    position: absolute;
+    bottom: 25%;
+    left: 50%;
+    transform: translate(-50%);
+    font-size: 2rem;
+    z-index: -10000000;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 8px;
+}
+
+.album__page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10000;
+    width: 100vw;
+    min-height: 100vh;
+    z-index: -10000000;
+    background-color: black;
 }

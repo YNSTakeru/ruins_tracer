@@ -14,6 +14,7 @@ let _minDegrees = Infinity;
 let _targetRuin = undefined;
 let _range = 3000;
 let _test = false;
+let _album;
 
 function createDOM(names) {
     let circles = {};
@@ -153,7 +154,7 @@ function success(pos) {
         document.querySelector(".camera").style.visibility = "hidden";
     }
 
-    document.querySelector(".camera").style.visibility = "visible";
+    // document.querySelector(".camera").style.visibility = "visible";
 
     _minDistance = Infinity;
 
@@ -165,6 +166,9 @@ function success(pos) {
 }
 
 function setupCamera() {
+    document.querySelector(".preview").style.zIndex = -100000;
+    document.querySelector(".exit").style.zIndex = -100000;
+    document.querySelector(".save").style.zIndex = -100000;
     const medias = {
         audio: false,
         video: {
@@ -185,42 +189,49 @@ function setupCamera() {
 
     promise.then(successCallback).catch(errorCallback);
 
+    let _stream;
+
+    const stopFunction = () => {
+        let canvas = document.createElement("canvas");
+        let ctx = canvas.getContext("2d");
+        let w = video.offsetWidth;
+        let h = video.offsetHeight;
+        canvas.setAttribute("width", w);
+        canvas.setAttribute("height", h);
+        ctx.drawImage(video, 0, 0, w, h);
+
+        const data = canvas.toDataURL("image/jpeg");
+        const preview = document.querySelector(".preview");
+        preview.style.zIndex = 100000;
+        document.querySelector(".save").style.zIndex = 10000000;
+        document.querySelector(".exit").style.zIndex = 10000000;
+        document.querySelector(".camera").style.visibility = "visible";
+        document.querySelector(".camera").style.zIndex = 10000000;
+
+        preview.src = data;
+        preview.alt = `${_targetRuin}`;
+
+        _circles[_targetRuin].style.backgroundColor = "gray";
+        cnt++;
+        _stream.getVideoTracks().forEach((track) => {
+            track.stop();
+        });
+        video.style.zIndex = -10000;
+        document.querySelector(".stop").style.visibility = "hidden";
+        document
+            .querySelector(".stop")
+            .removeEventListener("click", stopFunction);
+    };
+
+    document.querySelector(".stop").addEventListener("click", stopFunction);
+
     function successCallback(stream) {
+        _stream = stream;
         video.srcObject = stream;
         console.log(video.srcObject);
 
         document.querySelector(".stop").style.visibility = "visible";
         document.querySelector(".camera").style.visibility = "hidden";
-
-        document.querySelector(".stop").addEventListener("click", () => {
-            let canvas = document.createElement("canvas");
-            let ctx = canvas.getContext("2d");
-            let w = video.offsetWidth;
-            let h = video.offsetHeight;
-            canvas.setAttribute("width", w);
-            canvas.setAttribute("height", h);
-            ctx.drawImage(video, 0, 0, w, h);
-
-            const data = canvas.toDataURL("image/jpeg");
-            const preview = document.querySelector(".preview");
-            preview.style.zIndex = 100000;
-
-            preview.src = data;
-
-            // let element = document.createElement("a");
-            // element.href = data;
-            // element.download = `${_targetRuin}.jpeg`;
-            // element.target = "_blank";
-            // element.click();
-
-            _circles[_targetRuin].style.backgroundColor = "gray";
-            cnt++;
-            stream.getVideoTracks().forEach((track) => {
-                track.stop();
-            });
-            video.style.zIndex = -10000;
-            document.querySelector(".stop").style.visibility = "hidden";
-        });
     }
 
     function errorCallback(err) {
@@ -253,6 +264,10 @@ let os;
 window.addEventListener("DOMContentLoaded", init);
 
 function init() {
+    _album = JSON.parse(localStorage.getItem("album"));
+
+    if (!_album) _album = {};
+
     document.querySelector(".camera").addEventListener("click", setupCamera);
     document.querySelector(".camera").style.visibility = "hidden";
     document.querySelector(".stop").style.visibility = "hidden";
@@ -264,6 +279,72 @@ function init() {
         document
             .querySelector("#permit")
             .addEventListener("click", permitDeviceOrientationForSafari);
+
+        document.querySelector(".exit").addEventListener("click", () => {
+            document.querySelector(".save").style.zIndex = -10000000;
+            document.querySelector(".exit").style.zIndex = -10000000;
+            document.querySelector(".camera").style.visibility = "hidden";
+
+            const preview = document.querySelector(".preview");
+            preview.style.zIndex = -100000;
+
+            _album[preview.alt] = preview.src;
+            localStorage.setItem("album", JSON.stringify(_album));
+        });
+
+        document.querySelector(".album").addEventListener("click", () => {
+            if (document.querySelector(".album").textContent !== "閉じる") {
+                document.querySelector(".album__page").style.zIndex = 10000;
+                document.querySelector(".album").style.zIndex = 100000;
+                document.querySelector(".album").textContent = "閉じる";
+
+                console.log(_ruinNames);
+                let ul;
+                if (!document.querySelector("ul"))
+                    ul = document.createElement("ul");
+                else ul = document.querySelector("ul");
+                ul.style.display = "flex";
+                ul.style.flexWrap = "wrap";
+                ul.style.paddingTop = "13vh";
+                ul.style.paddingBottom = "5vh";
+                ul.style.paddingLeft = "5vw";
+                ul.style.paddingRight = "3vw";
+                ul.style.gap = "10px";
+
+                _ruinNames.forEach((name) => {
+                    if (!_album) return;
+                    if (_album[name]) {
+                        if (document.getElementById(name)) {
+                            const li = document.getElementById(`${name}Li`);
+                            ul.removeChild(li);
+                        }
+                        const img = document.createElement("img");
+                        img.src = _album[name];
+                        img.alt = name;
+                        img.style.width = "40vw";
+                        img.style.height = "auto";
+                        img.style.display = "block";
+                        img.setAttribute("id", `${name}Img`);
+                        const ruinName = document.createElement("div");
+                        ruinName.textContent = name;
+                        const li = document.createElement("li");
+                        li.style.listStyleType = "none";
+                        li.setAttribute("id", `${name}Li`);
+                        li.setAttribute("id", name);
+                        li.appendChild(img);
+                        li.appendChild(ruinName);
+
+                        ul.appendChild(li);
+                        document.querySelector(".album__page").appendChild(ul);
+                    }
+                });
+            } else {
+                document.querySelector(".album__page").style.zIndex = -10000;
+                document.querySelector(".album").style.zIndex = 0;
+                document.querySelector(".album").textContent = "アルバム";
+            }
+        });
+
         // window.addEventListener("deviceorientation", myOrientation, true);
     } else if (os == "android") {
         // window.addEventListener(
