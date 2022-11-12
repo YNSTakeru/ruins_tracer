@@ -205,7 +205,7 @@ function setupCamera() {
             const preview = document.querySelector(".preview");
             preview.style.zIndex = 100000;
 
-            preview.srcObject = data;
+            preview.src = data;
 
             // let element = document.createElement("a");
             // element.href = data;
