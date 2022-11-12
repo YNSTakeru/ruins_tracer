@@ -9,6 +9,7 @@
     padding: 10px 10px;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 20px;
 }
 
@@ -119,6 +120,16 @@ canvas {
     z-index: -100000;
     top: 0;
     left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.preview {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -10000;
     width: 100vw;
     height: 100vh;
 }
