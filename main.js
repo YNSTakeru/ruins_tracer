@@ -177,8 +177,8 @@ function setupCamera() {
     const medias = {
         audio: false,
         video: {
-            width: screen.height,
-            height: screen.width,
+            width: screen.width,
+            height: screen.height,
             facingMode: { exact: "environment" },
         },
     };
