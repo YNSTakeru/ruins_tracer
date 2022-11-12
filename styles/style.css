@@ -111,6 +111,10 @@ video {
     z-index: 1000000000;
 }
 
+#compass {
+    background-color: transparent;
+}
+
 #video {
     display: block;
     position: absolute;
