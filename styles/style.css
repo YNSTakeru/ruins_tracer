@@ -116,6 +116,8 @@ video {
     position: absolute;
     top: 0%;
     left: 0%;
+    min-width: 100vw;
+    height: auto;
 
     /* top: 50%;
     left: 50%;
