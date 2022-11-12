@@ -316,6 +316,7 @@ function init() {
                 document.querySelector(".album").style.zIndex = 100000;
                 document.querySelector(".album__page").style.visibility =
                     "visible";
+                document.querySelector(".album__page").style.maxHeight = "auto";
                 document.querySelector(".album").textContent = "閉じる";
                 // ySelector(".album__page").style.visibility = "visible";
 
@@ -367,6 +368,8 @@ function init() {
                 document.querySelector(".album").textContent = "アルバム";
                 document.querySelector(".album__page").style.visibility =
                     "hidden";
+                document.querySelector(".album__page").style.maxHeight =
+                    "100vh";
             }
         });
 
