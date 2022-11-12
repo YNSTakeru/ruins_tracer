@@ -179,7 +179,7 @@ function setupCamera() {
         video: {
             width: screen.height,
             height: screen.width,
-            facingMode: { exact: "environment" },
+            // facingMode: { exact: "environment" },
         },
     };
     const video = document.getElementById("video");
@@ -189,6 +189,7 @@ function setupCamera() {
     // ).textContent = `${screen.width} x ${screen.height}`;
 
     video.style.zIndex = 10000;
+    video.style.width = "100%";
 
     const promise = navigator.mediaDevices.getUserMedia(medias);
 
@@ -232,6 +233,7 @@ function setupCamera() {
         _stream = stream;
         video.srcObject = stream;
         console.log(video.srcObject);
+        video.style;
 
         document.querySelector(".stop").style.visibility = "visible";
         document.querySelector(".camera").style.visibility = "hidden";
