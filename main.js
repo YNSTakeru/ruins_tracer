@@ -211,8 +211,6 @@ function setupCamera() {
         preview.src = data;
         preview.alt = `${_targetRuin}`;
 
-        _circles[_targetRuin].style.backgroundColor = "gray";
-        cnt++;
         _stream.getVideoTracks().forEach((track) => {
             track.stop();
         });
@@ -284,6 +282,9 @@ function init() {
             document.querySelector(".save").style.zIndex = -10000000;
             document.querySelector(".exit").style.zIndex = -10000000;
             document.querySelector(".camera").style.visibility = "hidden";
+
+            _circles[_targetRuin].style.backgroundColor = "gray";
+            cnt++;
 
             const preview = document.querySelector(".preview");
             preview.style.zIndex = -100000;
