@@ -29,6 +29,10 @@ function createDOM(names) {
         document.querySelector(".map__circle").appendChild(circles[name]);
     });
 
+    for (ruinName in _album) {
+        circles[ruinName].style.backgroundColor = "gray";
+    }
+
     return circles;
 }
 
