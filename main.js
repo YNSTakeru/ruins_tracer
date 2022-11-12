@@ -327,7 +327,7 @@ function init() {
                     ul.style.paddingLeft = "5vw";
                     ul.style.paddingRight = "3vw";
                     ul.style.gap = "10px";
-                    ul.style.overflow = scroll;
+                    ul.style.overflow = "scroll";
                 } else ul = document.querySelector("ul");
 
                 _ruinNames.forEach((name) => {
