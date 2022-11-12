@@ -159,7 +159,7 @@ function success(pos) {
         document.querySelector(".camera").style.visibility = "hidden";
     }
 
-    document.querySelector(".camera").style.visibility = "visible";
+    // document.querySelector(".camera").style.visibility = "visible";
 
     _minDistance = Infinity;
 
@@ -174,6 +174,7 @@ function setupCamera() {
     document.querySelector(".preview").style.zIndex = -100000;
     document.querySelector(".exit").style.zIndex = -100000;
     document.querySelector(".save").style.zIndex = -100000;
+
     const medias = {
         audio: false,
         video: {
@@ -287,13 +288,15 @@ function init() {
             document.querySelector(".exit").style.zIndex = -10000000;
             document.querySelector(".camera").style.visibility = "hidden";
 
+            // document.querySelector(".camera").style.visibility = "visible";
+
             _circles[_targetRuin].style.backgroundColor = "gray";
             cnt++;
 
             const preview = document.querySelector(".preview");
             preview.style.zIndex = -100000;
 
-            _album[preview.alt] = preview.src;
+            _album[_targetRuin] = preview.src;
             localStorage.setItem("album", JSON.stringify(_album));
         });
 
@@ -304,27 +307,27 @@ function init() {
                 document.querySelector(".album").textContent = "閉じる";
                 // ySelector(".album__page").style.visibility = "visible";
 
-                console.log(_ruinNames);
                 let ul;
-                if (!document.querySelector("ul"))
+                if (!document.querySelector("ul")) {
                     ul = document.createElement("ul");
-                else ul = document.querySelector("ul");
-                ul.style.display = "flex";
-                ul.style.flexWrap = "wrap";
-                ul.style.paddingTop = "13vh";
-                ul.style.paddingBottom = "5vh";
-                ul.style.paddingLeft = "5vw";
-                ul.style.paddingRight = "3vw";
-                ul.style.gap = "10px";
+                    ul.style.display = "flex";
+                    ul.style.flexWrap = "wrap";
+                    ul.style.paddingTop = "13vh";
+                    ul.style.paddingBottom = "5vh";
+                    ul.style.paddingLeft = "5vw";
+                    ul.style.paddingRight = "3vw";
+                    ul.style.gap = "10px";
+                } else ul = document.querySelector("ul");
 
                 _ruinNames.forEach((name) => {
                     if (!_album) return;
 
                     if (_album[name]) {
-                        if (document.getElementById(name)) {
+                        if (document.getElementById(`${name}Li`)) {
                             const li = document.getElementById(`${name}Li`);
                             ul.removeChild(li);
                         }
+
                         const img = document.createElement("img");
                         img.src = _album[name];
                         img.alt = name;
@@ -337,7 +340,6 @@ function init() {
                         const li = document.createElement("li");
                         li.style.listStyleType = "none";
                         li.setAttribute("id", `${name}Li`);
-                        li.setAttribute("id", name);
                         li.appendChild(img);
                         li.appendChild(ruinName);
 
