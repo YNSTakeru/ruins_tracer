@@ -34,6 +34,7 @@ function createDOM(names) {
         _circlesText[name] = document.createElement("div");
         _circlesText[name].className = "circle__text";
         _circlesText[name].textContent = name;
+        _circlesText[name].style.backgroundColor = "transparent";
 
         circles[name].appendChild(_circlesText[name]);
         document.querySelector(".map__circle").appendChild(circles[name]);
@@ -182,21 +183,12 @@ function success(pos) {
     }
 
     if (_minDistance <= 3000) {
-        for (ruinName in _circlesText) {
-            _circlesText[ruinName].style.visibility = "hidden";
-        }
         _range = 3000;
     }
     if (_minDistance <= 500) {
         _range = 500;
     }
     if (_minDistance <= 300) {
-        for (ruinName in _circlesText) {
-            if (_circles[ruinName].style.backgroundColor === "gray") {
-                _circlesText[ruinName].style.visibility = "visible";
-                _circleText[ruinName].style.backgroundColor = "transparent";
-            }
-        }
         _range = 300;
     }
     if (_minDistance <= 100) {
