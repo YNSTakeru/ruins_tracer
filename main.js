@@ -28,36 +28,6 @@ function createDOM(names) {
     ul.style.paddingRight = "3vw";
     ul.style.gap = "10px";
 
-    // _ruinNames.forEach((name) => {
-    //     if (!_album) return;
-
-    //     if (_album[name]) {
-    //         if (document.getElementById(`${name}Li`)) {
-    //             const li = document.getElementById(`${name}Li`);
-    //             ul.removeChild(li);
-    //         }
-
-    //         const img = document.createElement("img");
-    //         img.src = _album[name];
-    //         img.alt = name;
-    //         img.style.width = "40vw";
-    //         img.style.height = "auto";
-    //         img.style.display = "block";
-    //         img.setAttribute("id", `${name}Img`);
-    //         const ruinName = document.createElement("div");
-    //         ruinName.textContent = name;
-    //         ruinName.style.textAlign = "center";
-    //         const li = document.createElement("li");
-    //         li.style.listStyleType = "none";
-    //         li.setAttribute("id", `${name}Li`);
-    //         li.appendChild(img);
-    //         li.appendChild(ruinName);
-
-    //         ul.appendChild(li);
-    //         document.querySelector(".album__page").appendChild(ul);
-    //     }
-    // });
-
     names.forEach((name, i) => {
         circles[name] = document.createElement("div");
         circles[name].className = "circle";
@@ -398,7 +368,6 @@ function init() {
                 });
 
                 document.querySelector(".album").textContent = "閉じる";
-                // ySelector(".album__page").style.visibility = "visible";
 
                 // let ul;
                 // if (!document.querySelector("ul")) {
@@ -411,6 +380,16 @@ function init() {
                 //     ul.style.paddingRight = "3vw";
                 //     ul.style.gap = "10px";
                 // } else ul = document.querySelector("ul");
+
+                for (ruinName in _album) {
+                    const img = document.querySelector(`#${ruinName}Li img`);
+                    const text = document.querySelector(`#${ruinName}Li div`);
+                    if (text.textContent !== "???") {
+                        img.src = _album[ruinName];
+                        img.alt = ruinName;
+                        text.textContent = ruinName;
+                    }
+                }
 
                 // _ruinNames.forEach((name) => {
                 //     if (!_album) return;
