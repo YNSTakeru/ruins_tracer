@@ -65,7 +65,7 @@ function createDOM(names) {
         li.style.flexDirection = "column";
         li.style.justifyContent = "center";
 
-        li.setAttribute("id", `${name}Li`);
+        li.setAttribute("id", `${name.replace(/\s+/g, "")}Li`);
         li.appendChild(img);
         li.appendChild(ruinName);
 
@@ -206,6 +206,8 @@ function success(pos) {
         _range = 50;
     }
 
+    _minDistance = 30;
+
     if (_minDistance <= 30) {
         if (document.querySelector(".stop").style.visibility !== "visible")
             document.querySelector(".camera").style.visibility = "visible";
@@ -234,7 +236,7 @@ function setupCamera() {
         video: {
             width: screen.height,
             height: screen.width,
-            facingMode: { exact: "environment" },
+            // facingMode: { exact: "environment" },
         },
     };
     const video = document.getElementById("video");
@@ -381,45 +383,20 @@ function init() {
                 //     ul.style.gap = "10px";
                 // } else ul = document.querySelector("ul");
 
+                console.log(_album);
+
                 for (ruinName in _album) {
-                    const img = document.querySelector(`#${ruinName}Li img`);
-                    const text = document.querySelector(`#${ruinName}Li div`);
+                    const id = ruinName.replace(/\s+/g, "");
+                    const img = document.querySelector(`#${id}Li img`);
+                    const text = document.querySelector(`#${id}Li div`);
+                    console.log(img);
+
                     if (text.textContent !== "???") {
                         img.src = _album[ruinName];
                         img.alt = ruinName;
                         text.textContent = ruinName;
                     }
                 }
-
-                // _ruinNames.forEach((name) => {
-                //     if (!_album) return;
-
-                //     if (_album[name]) {
-                //         if (document.getElementById(`${name}Li`)) {
-                //             const li = document.getElementById(`${name}Li`);
-                //             ul.removeChild(li);
-                //         }
-
-                //         const img = document.createElement("img");
-                //         img.src = _album[name];
-                //         img.alt = name;
-                //         img.style.width = "40vw";
-                //         img.style.height = "auto";
-                //         img.style.display = "block";
-                //         img.setAttribute("id", `${name}Img`);
-                //         const ruinName = document.createElement("div");
-                //         ruinName.textContent = name;
-                //         ruinName.style.textAlign = "center";
-                //         const li = document.createElement("li");
-                //         li.style.listStyleType = "none";
-                //         li.setAttribute("id", `${name}Li`);
-                //         li.appendChild(img);
-                //         li.appendChild(ruinName);
-
-                //         ul.appendChild(li);
-                //         document.querySelector(".album__page").appendChild(ul);
-                //     }
-                // });
             } else {
                 document.querySelector(".album__page").style.zIndex = -10000;
                 // document.querySelector(".album__page").style.visibility =
