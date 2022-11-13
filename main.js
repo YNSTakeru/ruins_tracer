@@ -241,7 +241,7 @@ function setupCamera() {
         video: {
             width: screen.height,
             height: screen.width,
-            // facingMode: { exact: "environment" },
+            facingMode: { exact: "environment" },
         },
     };
     const video = document.getElementById("video");
