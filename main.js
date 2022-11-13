@@ -19,6 +19,13 @@ let _album;
 function createDOM(names) {
     let circles = {};
 
+    document.addEventListener("touchmove", disableScroll, {
+        passive: false,
+    });
+    document.addEventListener("mousewheel", disableScroll, {
+        passive: false,
+    });
+
     const ul = document.createElement("ul");
     ul.style.display = "flex";
     ul.style.flexWrap = "wrap";
