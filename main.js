@@ -18,6 +18,46 @@ let _album;
 
 function createDOM(names) {
     let circles = {};
+
+    const ul = document.createElement("ul");
+    ul.style.display = "flex";
+    ul.style.flexWrap = "wrap";
+    ul.style.paddingTop = "13vh";
+    ul.style.paddingBottom = "5vh";
+    ul.style.paddingLeft = "5vw";
+    ul.style.paddingRight = "3vw";
+    ul.style.gap = "10px";
+
+    // _ruinNames.forEach((name) => {
+    //     if (!_album) return;
+
+    //     if (_album[name]) {
+    //         if (document.getElementById(`${name}Li`)) {
+    //             const li = document.getElementById(`${name}Li`);
+    //             ul.removeChild(li);
+    //         }
+
+    //         const img = document.createElement("img");
+    //         img.src = _album[name];
+    //         img.alt = name;
+    //         img.style.width = "40vw";
+    //         img.style.height = "auto";
+    //         img.style.display = "block";
+    //         img.setAttribute("id", `${name}Img`);
+    //         const ruinName = document.createElement("div");
+    //         ruinName.textContent = name;
+    //         ruinName.style.textAlign = "center";
+    //         const li = document.createElement("li");
+    //         li.style.listStyleType = "none";
+    //         li.setAttribute("id", `${name}Li`);
+    //         li.appendChild(img);
+    //         li.appendChild(ruinName);
+
+    //         ul.appendChild(li);
+    //         document.querySelector(".album__page").appendChild(ul);
+    //     }
+    // });
+
     names.forEach((name, i) => {
         circles[name] = document.createElement("div");
         circles[name].className = "circle";
@@ -27,6 +67,36 @@ function createDOM(names) {
 
         circles[name].appendChild(_circlesText[name]);
         document.querySelector(".map__circle").appendChild(circles[name]);
+
+        const img = document.createElement("img");
+        if (_album[name]) {
+            img.src = _album[name];
+            img.alt = name;
+        } else {
+            img.src = "./question.png";
+            img.alt = "???";
+        }
+
+        img.style.width = "40vw";
+        img.style.height = "auto";
+        img.style.display = "block";
+
+        const ruinName = document.createElement("div");
+        if (_album[name]) {
+            ruinName.textContent = name;
+        } else {
+            ruinName.textContent = "???";
+        }
+
+        ruinName.style.textAlign = "center";
+        const li = document.createElement("li");
+        li.style.listStyleType = "none";
+        li.setAttribute("id", `${name}Li`);
+        li.appendChild(img);
+        li.appendChild(ruinName);
+
+        ul.appendChild(li);
+        document.querySelector(".album__page").appendChild(ul);
     });
 
     for (ruinName in _album) {
@@ -326,47 +396,47 @@ function init() {
                 document.querySelector(".album").textContent = "閉じる";
                 // ySelector(".album__page").style.visibility = "visible";
 
-                let ul;
-                if (!document.querySelector("ul")) {
-                    ul = document.createElement("ul");
-                    ul.style.display = "flex";
-                    ul.style.flexWrap = "wrap";
-                    ul.style.paddingTop = "13vh";
-                    ul.style.paddingBottom = "5vh";
-                    ul.style.paddingLeft = "5vw";
-                    ul.style.paddingRight = "3vw";
-                    ul.style.gap = "10px";
-                } else ul = document.querySelector("ul");
+                // let ul;
+                // if (!document.querySelector("ul")) {
+                //     ul = document.createElement("ul");
+                //     ul.style.display = "flex";
+                //     ul.style.flexWrap = "wrap";
+                //     ul.style.paddingTop = "13vh";
+                //     ul.style.paddingBottom = "5vh";
+                //     ul.style.paddingLeft = "5vw";
+                //     ul.style.paddingRight = "3vw";
+                //     ul.style.gap = "10px";
+                // } else ul = document.querySelector("ul");
 
-                _ruinNames.forEach((name) => {
-                    if (!_album) return;
+                // _ruinNames.forEach((name) => {
+                //     if (!_album) return;
 
-                    if (_album[name]) {
-                        if (document.getElementById(`${name}Li`)) {
-                            const li = document.getElementById(`${name}Li`);
-                            ul.removeChild(li);
-                        }
+                //     if (_album[name]) {
+                //         if (document.getElementById(`${name}Li`)) {
+                //             const li = document.getElementById(`${name}Li`);
+                //             ul.removeChild(li);
+                //         }
 
-                        const img = document.createElement("img");
-                        img.src = _album[name];
-                        img.alt = name;
-                        img.style.width = "40vw";
-                        img.style.height = "auto";
-                        img.style.display = "block";
-                        img.setAttribute("id", `${name}Img`);
-                        const ruinName = document.createElement("div");
-                        ruinName.textContent = name;
-                        ruinName.style.textAlign = "center";
-                        const li = document.createElement("li");
-                        li.style.listStyleType = "none";
-                        li.setAttribute("id", `${name}Li`);
-                        li.appendChild(img);
-                        li.appendChild(ruinName);
+                //         const img = document.createElement("img");
+                //         img.src = _album[name];
+                //         img.alt = name;
+                //         img.style.width = "40vw";
+                //         img.style.height = "auto";
+                //         img.style.display = "block";
+                //         img.setAttribute("id", `${name}Img`);
+                //         const ruinName = document.createElement("div");
+                //         ruinName.textContent = name;
+                //         ruinName.style.textAlign = "center";
+                //         const li = document.createElement("li");
+                //         li.style.listStyleType = "none";
+                //         li.setAttribute("id", `${name}Li`);
+                //         li.appendChild(img);
+                //         li.appendChild(ruinName);
 
-                        ul.appendChild(li);
-                        document.querySelector(".album__page").appendChild(ul);
-                    }
-                });
+                //         ul.appendChild(li);
+                //         document.querySelector(".album__page").appendChild(ul);
+                //     }
+                // });
             } else {
                 document.querySelector(".album__page").style.zIndex = -10000;
                 // document.querySelector(".album__page").style.visibility =
