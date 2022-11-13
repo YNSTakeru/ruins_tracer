@@ -205,7 +205,7 @@ function success(pos) {
         _range = 50;
     }
 
-    _minDistance = 30;
+    // _minDistance = 30;
 
     if (_minDistance <= 30) {
         if (document.querySelector(".stop").style.visibility !== "visible")
