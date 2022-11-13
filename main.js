@@ -477,6 +477,7 @@ function myOrientation(event) {
                 _circles[_ruinNames[i]].style.visibility = "visible";
             } else {
                 _circles[_ruinNames[i]].style.visibility = "hidden";
+                _circlesText[_ruinNames[i]].style.visibility = "hidden";
             }
         });
     } else {
