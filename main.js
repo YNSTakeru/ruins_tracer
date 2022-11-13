@@ -192,6 +192,12 @@ function success(pos) {
     if (_minDistance <= 3000) {
         _range = 3000;
     }
+
+    if (_minDistance <= 3000 && _minDistance > 300) {
+        for (n in _album) {
+            _circlesText[n].style.visibility = "hidden";
+        }
+    }
     if (_minDistance <= 500) {
         _range = 500;
     }
