@@ -371,27 +371,14 @@ function init() {
 
                 document.querySelector(".album").textContent = "閉じる";
 
-                // let ul;
-                // if (!document.querySelector("ul")) {
-                //     ul = document.createElement("ul");
-                //     ul.style.display = "flex";
-                //     ul.style.flexWrap = "wrap";
-                //     ul.style.paddingTop = "13vh";
-                //     ul.style.paddingBottom = "5vh";
-                //     ul.style.paddingLeft = "5vw";
-                //     ul.style.paddingRight = "3vw";
-                //     ul.style.gap = "10px";
-                // } else ul = document.querySelector("ul");
-
                 console.log(_album);
 
                 for (ruinName in _album) {
                     const id = ruinName.replace(/\s+/g, "");
                     const img = document.querySelector(`#${id}Li img`);
                     const text = document.querySelector(`#${id}Li div`);
-                    console.log(img);
-
-                    if (text.textContent !== "???") {
+                    if (img.alt === "???") {
+                        // console.log(img);
                         img.src = _album[ruinName];
                         img.alt = ruinName;
                         text.textContent = ruinName;
