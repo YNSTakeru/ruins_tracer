@@ -91,6 +91,10 @@ function createDOM(names) {
         ruinName.style.textAlign = "center";
         const li = document.createElement("li");
         li.style.listStyleType = "none";
+        li.style.display = "flex";
+        li.style.flexDirection = "column";
+        li.style.justifyContent = "center";
+
         li.setAttribute("id", `${name}Li`);
         li.appendChild(img);
         li.appendChild(ruinName);
