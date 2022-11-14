@@ -80,7 +80,7 @@ video {
 .camera {
     display: block;
     width: 20vw;
-    height: auto;
+    height: 20vw;
     position: absolute;
     background-color: transparent;
     bottom: 14%;
@@ -93,18 +93,39 @@ video {
     text-align: center;
     vertical-align: center;
 }
+
+.recamera {
+    display: block;
+    position: absolute;
+    background-color: white;
+    bottom: 14%;
+    left: 20%;
+    width: 30vw;
+    transform: translate(-50%);
+    color: black;
+    padding: 5px 2px;
+    border-radius: 8px;
+    font-size: 2rem;
+    text-align: center;
+    vertical-align: center;
+    z-index: -10000000;
+    visibility: hidden;
+}
+
 .stop {
     display: block;
     background-color: white;
-    width: 60%;
-    height: auto;
+    border: 5px solid black;
+    outline: white solid 5px;
+    width: 20vw;
+    height: 20vw;
     position: absolute;
     bottom: 14%;
     left: 50%;
     transform: translate(-50%);
     color: black;
     padding: 10px 20px;
-    border-radius: 8px;
+    border-radius: 100%;
     font-size: 2rem;
     text-align: center;
     vertical-align: center;
@@ -165,13 +186,14 @@ canvas {
     display: block;
     position: absolute;
     background-color: white;
-    bottom: 25%;
-    left: 50%;
+    bottom: 14%;
+    left: 80%;
+    width: 30vw;
     transform: translate(-50%);
     font-size: 2rem;
     z-index: -10000000;
     color: black;
-    padding: 10px 20px;
+    padding: 5px 2px;
     border-radius: 8px;
 }
 

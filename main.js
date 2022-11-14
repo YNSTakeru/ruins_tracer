@@ -220,7 +220,10 @@ function success(pos) {
         document.querySelector(".camera").style.visibility = "hidden";
     }
 
-    document.querySelector(".camera").style.visibility = "visible";
+    // document.querySelector(".camera").style.visibility = "visible";
+    // document.querySelector(".stop").style.visibility = "visible";
+    // document.querySelector(".exit").style.visibility = "visible";
+    // document.querySelector(".exit").style.zIndex = "100000";
 
     _minDistance = Infinity;
 
@@ -234,6 +237,7 @@ function success(pos) {
 function setupCamera() {
     document.querySelector(".preview").style.zIndex = -100000;
     document.querySelector(".exit").style.zIndex = -100000;
+    document.querySelector(".recamera").style.zIndex = -100000;
     document.querySelector(".save").style.zIndex = -100000;
 
     const medias = {
@@ -272,8 +276,10 @@ function setupCamera() {
         preview.style.zIndex = 100000;
         document.querySelector(".save").style.zIndex = 10000000;
         document.querySelector(".exit").style.zIndex = 10000000;
-        document.querySelector(".camera").style.visibility = "visible";
-        document.querySelector(".camera").style.zIndex = 10000000;
+        const reCamera = document.querySelector(".recamera");
+
+        reCamera.style.visibility = "visible";
+        reCamera.style.zIndex = "10000000";
 
         preview.src = data;
         preview.alt = `${_targetRuin}`;
@@ -333,6 +339,9 @@ function init() {
     if (!_album) _album = {};
 
     document.querySelector(".camera").addEventListener("click", setupCamera);
+
+    document.querySelector(".recamera").addEventListener("click", setupCamera);
+
     document.querySelector(".camera").style.visibility = "hidden";
     document.querySelector(".stop").style.visibility = "hidden";
 
@@ -348,6 +357,8 @@ function init() {
             document.querySelector(".save").style.zIndex = -10000000;
             document.querySelector(".exit").style.zIndex = -10000000;
             document.querySelector(".camera").style.visibility = "hidden";
+            document.querySelector(".recamera").style.visibility = "hidden";
+            document.querySelector(".recamera").style.zIndex = -10000000;
 
             // document.querySelector(".camera").style.visibility = "visible";
 
