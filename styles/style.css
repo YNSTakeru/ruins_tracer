@@ -82,6 +82,7 @@ video {
     width: 20vw;
     height: auto;
     position: absolute;
+    background-color: transparent;
     bottom: 14%;
     left: 50%;
     transform: translate(-50%);
