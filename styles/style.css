@@ -79,10 +79,9 @@ video {
 
 .camera {
     display: block;
-    width: 60%;
+    width: 20vw;
     height: auto;
     position: absolute;
-    background-color: white;
     bottom: 14%;
     left: 50%;
     transform: translate(-50%);

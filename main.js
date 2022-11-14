@@ -220,7 +220,7 @@ function success(pos) {
         document.querySelector(".camera").style.visibility = "hidden";
     }
 
-    // document.querySelector(".camera").style.visibility = "visible";
+    document.querySelector(".camera").style.visibility = "visible";
 
     _minDistance = Infinity;
 
