@@ -333,7 +333,7 @@ let os;
 // DOM構築完了イベントハンドラ登録
 window.addEventListener("DOMContentLoaded", init);
 
-async function init() {
+function init() {
     _album = JSON.parse(localStorage.getItem("album"));
 
     if (!_album) _album = {};
@@ -349,10 +349,10 @@ async function init() {
     os = detectOSSimply();
     if (os == "iphone") {
         // safari用。DeviceOrientation APIの使用をユーザに許可して貰う
-        // document
-        //     .querySelector("#permit")
-        //     .addEventListener("click", permitDeviceOrientationForSafari);
-        await permitDeviceOrientationForSafari();
+        document
+            .querySelector("#permit")
+            .addEventListener("click", permitDeviceOrientationForSafari);
+        // permitDeviceOrientationForSafari();
 
         document.querySelector(".exit").addEventListener("click", () => {
             document.querySelector(".save").style.zIndex = -10000000;
@@ -570,6 +570,7 @@ function detectOSSimply() {
 }
 
 function permitDeviceOrientationForSafari() {
+    document.getElementById("permit").style.visibility = "hidden";
     DeviceOrientationEvent.requestPermission()
         .then((response) => {
             if (response === "granted") {

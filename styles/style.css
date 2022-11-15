@@ -151,6 +151,20 @@ video {
 
 #permit {
     z-index: 10000;
+    display: block;
+    width: 45vw;
+    height: 20vw;
+    position: absolute;
+    background-color: white;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    color: black;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 2rem;
+    text-align: center;
+    vertical-align: center;
 }
 
 canvas {
