@@ -333,7 +333,7 @@ let os;
 // DOM構築完了イベントハンドラ登録
 window.addEventListener("DOMContentLoaded", init);
 
-function init() {
+async function init() {
     _album = JSON.parse(localStorage.getItem("album"));
 
     if (!_album) _album = {};
@@ -352,7 +352,7 @@ function init() {
         // document
         //     .querySelector("#permit")
         //     .addEventListener("click", permitDeviceOrientationForSafari);
-        permitDeviceOrientationForSafari();
+        await permitDeviceOrientationForSafari();
 
         document.querySelector(".exit").addEventListener("click", () => {
             document.querySelector(".save").style.zIndex = -10000000;
