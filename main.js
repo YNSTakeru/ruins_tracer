@@ -376,6 +376,8 @@ function init() {
         document.querySelector(".album").addEventListener("click", () => {
             if (document.querySelector(".album").textContent !== "閉じる") {
                 document.querySelector(".album__page").style.zIndex = 10000;
+                document.querySelector(".album__page").style.transform =
+                    "translate(0,0)";
                 document.querySelector(".album").style.zIndex = 100000;
                 document.querySelector(".album__page").style.visibility =
                     "visible";
@@ -403,12 +405,15 @@ function init() {
                 }
             } else {
                 document.querySelector(".album__page").style.zIndex = -10000;
+                document.querySelector(".album__page").style.transform =
+                    "translate(-100%,0)";
                 // document.querySelector(".album__page").style.visibility =
                 //     "hidden";
                 document.querySelector(".album").style.zIndex = 0;
+
                 document.querySelector(".album").textContent = "アルバム";
-                document.querySelector(".album__page").style.visibility =
-                    "hidden";
+                // document.querySelector(".album__page").style.visibility =
+                // "hidden";
                 document.addEventListener("touchmove", disableScroll, {
                     passive: false,
                 });
