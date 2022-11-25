@@ -34,6 +34,21 @@ video {
     height: 85vw;
     background-color: green;
     position: relative;
+
+    background-image: repeating-linear-gradient(
+            90deg,
+            #000,
+            #000 1px,
+            transparent 1px,
+            transparent 32px
+        ),
+        repeating-linear-gradient(
+            0deg,
+            #000,
+            #000 1px,
+            #008000 1px,
+            #008000 32px
+        );
 }
 
 .center__circle {
