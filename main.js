@@ -52,7 +52,6 @@ function pointermoveHandler(ev) {
                 _zoomWeight += 10;
             }
         }
-        _range + _zoomWeight <= 30 ? (_zoomWeight += 10) : _zoomWeight;
 
         prevDiff = curDiff;
     }
@@ -535,6 +534,8 @@ function myOrientation(event) {
         _degrees = degrees;
 
         if (_distances.length === 0) return;
+
+        if (rng < 30) _zoomWeight = 30;
 
         const $compass = document.querySelector("#compass");
         $compass.textContent = `発見数: ${cnt} 範囲: ${rng}`;
