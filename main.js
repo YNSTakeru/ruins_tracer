@@ -244,7 +244,7 @@ function success(pos) {
     }
 
     if (_minDistance <= 3000) {
-        _range = 3000 + _zoomWeight;
+        _range = 3000;
     }
 
     if (_minDistance <= 3000 && _minDistance > 300) {
@@ -253,16 +253,16 @@ function success(pos) {
         }
     }
     if (_minDistance <= 500) {
-        _range = 500 + _zoomWeight;
+        _range = 500;
     }
     if (_minDistance <= 300) {
-        _range = 300 + _zoomWeight;
+        _range = 300;
     }
     if (_minDistance <= 100) {
-        _range = 100 + _zoomWeight;
+        _range = 100;
     }
     if (_minDistance <= 50) {
-        _range = 50 + _zoomWeight;
+        _range = 50;
     }
 
     if (_minDistance <= 30) {
