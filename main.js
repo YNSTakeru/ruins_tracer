@@ -16,6 +16,67 @@ let _range = 3000;
 let _test = false;
 let _album;
 
+const evCache = [];
+const prevDiff = -1;
+
+function registerPinch() {
+    const el = document.querySelector(".map__circle");
+    el.onpointerdown = pointerdownHandler;
+    el.onpointermove = pointermoveHandler;
+
+    el.onpointerup = pointerupHandler;
+    el.onpointercancel = pointerupHandler;
+    el.onpointerout = pointerupHandler;
+    el.onpointerleave = pointerupHandler;
+}
+
+function pointerdownHandler(ev) {
+    evCache.push(ev);
+}
+
+document.getElementById("permit").textContent = "Zoom out";
+
+function pointermoveHandler(ev) {
+    ev.target.style.border = "dashed";
+
+    const index = evCache.findIndex(
+        (cachedEv) => cachedEv.pointerId === ev.pointerId
+    );
+    evCache[index] = ev;
+
+    if (evCache.length === 2) {
+        const curDiff = Math.abs(evCache[0].clientX - evCache[1].clientX);
+
+        if (prevDiff > 0) {
+            if (curDiff > prevDiff) {
+                console.log("Zoom in");
+                document.getElementById("permit").textContent = "Zoom in";
+            }
+            if (curDiff < prevDiff) {
+                console.log("Zoom out");
+                document.getElementById("permit").textContent = "Zoom out";
+            }
+        }
+
+        prevDiff = curDiff;
+    }
+}
+
+function pointerupHandler(ev) {
+    removeEvent(ev);
+
+    if (evCache.length < 2) {
+        prevDiff = -1;
+    }
+}
+
+function removeEvent(ev) {
+    const index = evCache.findIndex(
+        (cachedEv) => cachedEv.pointerId === ev.pointerId
+    );
+    evCache.splice(index, 1);
+}
+
 function createDOM(names) {
     let circles = {};
 
@@ -332,71 +393,6 @@ let os;
 
 // DOM構築完了イベントハンドラ登録
 window.addEventListener("DOMContentLoaded", init);
-
-const eveCache = [];
-const prevDiff = -1;
-
-function registerPinch() {
-    const $el = document.querySelector(".map");
-    $el.onpointerdown = pointerdownHandler;
-    $el.onpointermove = pointermoveHandler;
-    $el.onpointerup = pointerupHandler;
-    $el.onpointercancel = pointerupHandler;
-    $el.onpointerout = pointerupHandler;
-    $el.onpointerleave = pointerupHandler;
-}
-
-function log(prefix, ev) {
-    console.log(
-        `  pointerID   = ${ev.pointerId}<br>` +
-            `  pointerType = ${ev.pointerType}<br>` +
-            `  isPrimary   = ${ev.isPrimary}`
-    );
-}
-
-function pointerupHandler(ev) {
-    log(ev.type, ev);
-    remove_event(ev);
-
-    if (evCache.length < 2) {
-        prevDiff = -1;
-    }
-}
-
-function pointerdownHandler(ev) {
-    evCache.push(ev);
-    log("pointerDown", ev);
-}
-
-function pointermoveHandler(ev) {
-    log("pointerMove", ev);
-
-    const index = evCache.findIndex(
-        (cachedEv) => cachedEv.pointerId === ev.pointerId
-    );
-    evCache[index] = ev;
-
-    if (evCache.length === 2) {
-        // 2 つのポインター間の距離を計算
-        const curDiff = Math.abs(evCache[0].clientX - evCache[1].clientX);
-
-        if (prevDiff > 0) {
-            if (curDiff > prevDiff) {
-                log("Pinch moving OUT -> Zoom in", ev);
-
-                document.getElementById("permit").textContent = "Zoom in";
-            }
-            if (curDiff < prevDiff) {
-                // 2 つのポインター間の距離が減った
-                log("Pinch moving IN -> Zoom out", ev);
-
-                document.getElementById("permit").textContent = "Zoom out";
-            }
-        }
-
-        prevDiff = curDiff;
-    }
-}
 
 function init() {
     _album = JSON.parse(localStorage.getItem("album"));
