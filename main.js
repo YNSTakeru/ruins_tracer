@@ -43,13 +43,23 @@ function pointermoveHandler(ev) {
 
     if (evCache.length === 2) {
         const curDiff = Math.abs(evCache[0].clientX - evCache[1].clientX);
+        let weight;
+        if (_range + _zoomWeight > 1000) {
+            weight = 100;
+        }
+        if (_range + _zoomWeight > 500) {
+            weight = 50;
+        }
+        if (_range + _zoomWeight > 300) {
+            weight = 10;
+        }
 
         if (prevDiff > 0) {
             if (curDiff > prevDiff) {
-                if (_range + _zoomWeight > 41) _zoomWeight -= 10;
+                if (_range + _zoomWeight > 41) _zoomWeight -= weight;
             }
             if (curDiff < prevDiff) {
-                _zoomWeight += 10;
+                _zoomWeight += weight;
             }
         }
 
