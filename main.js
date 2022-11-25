@@ -46,7 +46,7 @@ function pointermoveHandler(ev) {
 
         if (prevDiff > 0) {
             if (curDiff > prevDiff) {
-                _range + _zoomWeight >= 41 ? (_zoomWeight -= 10) : _zoomWeight;
+                if (_range + _zoomWeight > 41) _zoomWeight -= 10;
             }
             if (curDiff < prevDiff) {
                 _zoomWeight += 10;
