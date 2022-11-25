@@ -57,6 +57,7 @@ video {
     left: 50%;
     transform: translate(calc(-50% + 0vw), calc(-50% + 0vw));
     visibility: hidden;
+    transition: all 0.1s ease;
 }
 
 .circle__text {

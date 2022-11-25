@@ -17,10 +17,10 @@ let _test = false;
 let _album;
 
 const evCache = [];
-const prevDiff = -1;
+let prevDiff = -1;
 
 function registerPinch() {
-    const el = document.querySelector(".map__circle");
+    const el = document.querySelector("#radar");
     el.onpointerdown = pointerdownHandler;
     el.onpointermove = pointermoveHandler;
 
@@ -34,11 +34,7 @@ function pointerdownHandler(ev) {
     evCache.push(ev);
 }
 
-document.getElementById("permit").textContent = "Zoom out";
-
 function pointermoveHandler(ev) {
-    ev.target.style.border = "dashed";
-
     const index = evCache.findIndex(
         (cachedEv) => cachedEv.pointerId === ev.pointerId
     );
@@ -49,12 +45,14 @@ function pointermoveHandler(ev) {
 
         if (prevDiff > 0) {
             if (curDiff > prevDiff) {
-                console.log("Zoom in");
-                document.getElementById("permit").textContent = "Zoom in";
+                document.getElementById("permit").textContent =
+                    "Zoom in" + prevDiff;
+                _range += 10;
             }
             if (curDiff < prevDiff) {
-                console.log("Zoom out");
-                document.getElementById("permit").textContent = "Zoom out";
+                document.getElementById("permit").textContent =
+                    "Zoom out" + prevDiff;
+                _range = _range + _minDistance >= 41 ? (_range -= 10) : _range;
             }
         }
 
@@ -185,9 +183,6 @@ function success(pos) {
         135.49084048674342
     );
 
-    // console.log("The distance is " + r.s12.toFixed(3) / 1000 + " km.");
-    // console.log("方位角" + r.azi1);
-
     _myPosition = {
         latitude: crd.latitude,
         longitude: crd.longitude,
@@ -271,8 +266,6 @@ function success(pos) {
     if (_minDistance <= 50) {
         _range = 50;
     }
-
-    // _minDistance = 30;
 
     if (_minDistance <= 30) {
         if (document.querySelector(".stop").style.visibility !== "visible")
@@ -396,6 +389,8 @@ window.addEventListener("DOMContentLoaded", init);
 
 function init() {
     _album = JSON.parse(localStorage.getItem("album"));
+
+    registerPinch();
 
     if (!_album) _album = {};
 
