@@ -52,6 +52,7 @@ function pointermoveHandler(ev) {
                 _zoomWeight += 10;
             }
         }
+        _range + _zoomWeight <= 30 ? (_zoomWeight += 10) : _zoomWeight;
 
         prevDiff = curDiff;
     }
