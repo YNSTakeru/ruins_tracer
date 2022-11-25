@@ -46,17 +46,12 @@ function pointermoveHandler(ev) {
 
         if (prevDiff > 0) {
             if (curDiff > prevDiff) {
-                document.getElementById("permit").textContent =
-                    "Zoom in" + prevDiff;
-                _zoomWeight += 10;
+                _zoomWeight + _minDistance >= 41
+                    ? (_zoomWeight -= 10)
+                    : _zoomWeight;
             }
             if (curDiff < prevDiff) {
-                document.getElementById("permit").textContent =
-                    "Zoom out" + prevDiff;
-                _zoomWeight =
-                    _range + _minDistance >= 41
-                        ? (_zoomWeight -= 10)
-                        : _zoomWeight;
+                _zoomWeight += 10;
             }
         }
 
