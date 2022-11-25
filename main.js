@@ -394,6 +394,14 @@ window.addEventListener("DOMContentLoaded", init);
 function init() {
     _album = JSON.parse(localStorage.getItem("album"));
 
+    document.addEventListener(
+        "dblclick",
+        function (e) {
+            e.preventDefault();
+        },
+        { passive: false }
+    );
+
     registerPinch();
 
     if (!_album) _album = {};
