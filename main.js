@@ -45,7 +45,7 @@ function pointermoveHandler(ev) {
         const curDiff = Math.abs(evCache[0].clientX - evCache[1].clientX);
         let weight;
         if (_range + _zoomWeight > 1000) {
-            weight = 100;
+            weight = 1000;
         }
         if (_range + _zoomWeight > 500) {
             weight = 50;
@@ -62,6 +62,8 @@ function pointermoveHandler(ev) {
                 _zoomWeight += weight;
             }
         }
+
+        if (isNaN(_range + _zoomWeight)) _zoomWeight = 40;
 
         prevDiff = curDiff;
     }
