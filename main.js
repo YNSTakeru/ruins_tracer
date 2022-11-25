@@ -15,6 +15,7 @@ let _targetRuin = undefined;
 let _range = 3000;
 let _test = false;
 let _album;
+let _zoomWeight = 0;
 
 const evCache = [];
 let prevDiff = -1;
@@ -47,12 +48,15 @@ function pointermoveHandler(ev) {
             if (curDiff > prevDiff) {
                 document.getElementById("permit").textContent =
                     "Zoom in" + prevDiff;
-                _range += 10;
+                _zoomWeight += 10;
             }
             if (curDiff < prevDiff) {
                 document.getElementById("permit").textContent =
                     "Zoom out" + prevDiff;
-                _range = _range + _minDistance >= 41 ? (_range -= 10) : _range;
+                _zoomWeight =
+                    _range + _minDistance >= 41
+                        ? (_zoomWeight -= 10)
+                        : _zoomWeight;
             }
         }
 
@@ -198,6 +202,7 @@ function success(pos) {
     _direction = [];
 
     const preTargetRuin = _targetRuin;
+    const rng = _range + _zoomWeight;
 
     _ruinNames.forEach((name) => {
         r = geod.Inverse(
@@ -209,7 +214,7 @@ function success(pos) {
 
         const distance = parseFloat(r.s12.toFixed(3));
 
-        const r2 = (distance * (42.5 - 1.5)) / _range;
+        const r2 = (distance * (42.5 - 1.5)) / rng;
 
         _distances = [..._distances, distance];
         _direction = [..._direction, r.azi1];
@@ -246,7 +251,7 @@ function success(pos) {
     }
 
     if (_minDistance <= 3000) {
-        _range = 3000;
+        _range = 3000 + _zoomWeight;
     }
 
     if (_minDistance <= 3000 && _minDistance > 300) {
@@ -255,16 +260,16 @@ function success(pos) {
         }
     }
     if (_minDistance <= 500) {
-        _range = 500;
+        _range = 500 + _zoomWeight;
     }
     if (_minDistance <= 300) {
-        _range = 300;
+        _range = 300 + _zoomWeight;
     }
     if (_minDistance <= 100) {
-        _range = 100;
+        _range = 100 + _zoomWeight;
     }
     if (_minDistance <= 50) {
-        _range = 50;
+        _range = 50 + _zoomWeight;
     }
 
     if (_minDistance <= 30) {
@@ -497,11 +502,13 @@ function init() {
     if (_test) {
         document.querySelector(".camera").style.visibility = "visible";
 
+        const rng = _range + _zoomWeight;
+
         setInterval(() => {
             _degrees = 270;
             _distances.forEach((distance, i) => {
-                if (_range >= distance) {
-                    const r2 = (distance * (42.5 - 1.5)) / _range;
+                if (rng >= distance) {
+                    const r2 = (distance * (42.5 - 1.5)) / rng;
 
                     _theta = ((90 + _degrees - _direction[i]) * Math.PI) / 180;
                     _circles[
@@ -525,6 +532,8 @@ function myOrientation(event) {
     let beta = event.beta;
     let gamma = event.gamma;
 
+    const rng = _range + _zoomWeight;
+
     let degrees;
     if (os == "iphone") {
         // webkitCompasssHeading値を採用
@@ -534,12 +543,12 @@ function myOrientation(event) {
         if (_distances.length === 0) return;
 
         const $compass = document.querySelector("#compass");
-        $compass.textContent = `発見数: ${cnt} 範囲: ${_range}`;
+        $compass.textContent = `発見数: ${cnt} 範囲: ${rng}`;
         // $compass.textContent = `${navigator.userAgent}`;
 
         _distances.forEach((distance, i) => {
-            if (_range >= distance) {
-                const r2 = (distance * (42.5 - 1.5)) / _range;
+            if (rng >= distance) {
+                const r2 = (distance * (42.5 - 1.5)) / rng;
 
                 _theta = ((90 + _degrees - _direction[i]) * Math.PI) / 180;
                 _circles[
