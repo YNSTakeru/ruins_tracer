@@ -110,6 +110,7 @@ function createDOM(names) {
     document.querySelector(".map__circle").appendChild(circles[name]);
 
     const img = document.createElement("img");
+    if (!_album) return;
     if (_album[name]) {
       img.src = _album[name];
       img.alt = name;
@@ -387,14 +388,20 @@ function disableScroll(event) {
 
 let os;
 let db;
-
 // DOM構築完了イベントハンドラ登録
 window.addEventListener("DOMContentLoaded", init);
 
-function init() {
+async function init() {
   // indexedDBからデータを取得
+
   const DB_VERSION = 1;
-  db = new Database({ dbName: "ruinDB", dbVersion: DB_VERSION });
+  const db = new Database({ dbName: "ruinDB", dbVersion: DB_VERSION });
+  try {
+    const data = await db.getData();
+  } catch (error) {
+    console.log(error);
+  }
+  // _album = db.getData();
 
   document.addEventListener(
     "dblclick",
@@ -440,8 +447,11 @@ function init() {
       preview.style.zIndex = -100000;
 
       _album[_targetRuin] = preview.src;
-      // indexedDBに保存
-      const item = { id: "1", ruinName: _targetRuin, photoSrc: preview.src };
+      const item = {
+        id: _data[_targetRuin].id,
+        ruinName: _targetRuin,
+        photoSrc: preview.src,
+      };
       db.register(item);
     });
 
