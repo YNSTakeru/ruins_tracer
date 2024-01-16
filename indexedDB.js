@@ -1,4 +1,4 @@
-class Database {
+export default class Database {
   constructor({ dbName = "testdb", dbVersion = 1 }) {
     this._dbName = dbName;
     this._dbVersion = dbVersion;
@@ -24,7 +24,7 @@ class Database {
       this._transaction = this._db.transaction("photos", "readwrite");
       this._store = this._transaction.objectStore("photos");
 
-      this._store({ ruinName: "遺跡名", photoSrc: "画像" });
+      this._store.add({ ruinName: "遺跡名", photoSrc: "画像" });
     };
     this._dbRequest.onblocked = function (event) {
       console.log("Blocked!");

@@ -1,3 +1,4 @@
+import Database from "./indexedDB.js";
 let _circles = {};
 let _circlesText = {};
 let _ruinNames = undefined;
@@ -156,7 +157,7 @@ async function getData() {
   const data = await response.json();
   let ruinNames = [];
 
-  for (d in data) {
+  for (const d in data) {
     ruinNames = [...ruinNames, d];
   }
   return { data, ruinNames };
@@ -391,6 +392,8 @@ window.addEventListener("DOMContentLoaded", init);
 
 function init() {
   // indexedDBからデータを取得
+  const DB_VERSION = 1;
+  const db = new Database({ dbName: "ruinDB", dbVersion: DB_VERSION });
 
   document.addEventListener(
     "dblclick",
