@@ -110,7 +110,7 @@ function createDOM(names) {
     document.querySelector(".map__circle").appendChild(circles[name]);
 
     const img = document.createElement("img");
-    if (!_album) return;
+
     if (_album[name]) {
       img.src = _album[name];
       img.alt = name;
@@ -145,7 +145,8 @@ function createDOM(names) {
     document.querySelector(".album__page").appendChild(ul);
   });
 
-  for (ruinName in _album) {
+  for (const ruinName in _album) {
+    if (!circles[ruinName]) continue;
     circles[ruinName].style.backgroundColor = "gray";
     cnt++;
   }
@@ -242,7 +243,7 @@ function success(pos) {
   document.querySelector(".distance").textContent =
     Math.floor(_minDistance) + "m";
 
-  for (ruinName in _circles) {
+  for (const ruinName in _circles) {
     if (_targetRuin === ruinName) {
       _circles[_targetRuin].style.backgroundColor = "blue";
     } else {
@@ -256,7 +257,7 @@ function success(pos) {
   }
 
   if (_minDistance <= 3000 && _minDistance > 300) {
-    for (n in _album) {
+    for (const n in _album) {
       _circlesText[n].style.visibility = "hidden";
     }
   }
@@ -371,15 +372,6 @@ function error(err) {
   console.log("位置情報を正しく取得できませんでした");
 }
 
-(async () => {
-  navigator.geolocation.watchPosition(success, error, options);
-
-  const { data, ruinNames } = await getData();
-  _data = data;
-  _ruinNames = ruinNames;
-  _circles = createDOM(ruinNames);
-})();
-
 function disableScroll(event) {
   event.preventDefault();
 }
@@ -397,10 +389,22 @@ async function init() {
   const DB_VERSION = 1;
   const db = new Database({ dbName: "ruinDB", dbVersion: DB_VERSION });
   const data = await db.getData();
-  const newData = data.map(({ ruinName, photoSrc }) => {
-    return { ruinName: photoSrc };
-  });
+
+  const newData = data.reduce((acc, cur) => {
+    acc = { ...acc, [cur.ruinName]: cur.photoSrc };
+    return acc;
+  }, {});
+
   _album = newData;
+
+  (async () => {
+    navigator.geolocation.watchPosition(success, error, options);
+
+    const { data, ruinNames } = await getData();
+    _data = data;
+    _ruinNames = ruinNames;
+    _circles = createDOM(ruinNames);
+  })();
 
   document.addEventListener(
     "dblclick",
@@ -470,9 +474,7 @@ async function init() {
 
         document.querySelector(".album").textContent = "閉じる";
 
-        console.log(_album);
-
-        for (ruinName in _album) {
+        for (const ruinName in _album) {
           const id = ruinName.replace(/\s+/g, "");
           const img = document.querySelector(`#${id}Li img`);
           const text = document.querySelector(`#${id}Li div`);
