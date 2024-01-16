@@ -396,12 +396,11 @@ async function init() {
 
   const DB_VERSION = 1;
   const db = new Database({ dbName: "ruinDB", dbVersion: DB_VERSION });
-  try {
-    const data = await db.getData();
-  } catch (error) {
-    console.log(error);
-  }
-  // _album = db.getData();
+  const data = await db.getData();
+  const newData = data.map(({ ruinName, photoSrc }) => {
+    return { ruinName: photoSrc };
+  });
+  _album = newData;
 
   document.addEventListener(
     "dblclick",

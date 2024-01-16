@@ -32,7 +32,7 @@ export default class Database {
       this._transaction = this._db.transaction("photos", "readonly");
       this._store = this._transaction.objectStore("photos");
 
-      this._request = this._store.count();
+      // this._request = this._store.count();
       // const item = {
       //   id: "1",
       //   ruinName: "遺跡名",
