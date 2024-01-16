@@ -386,6 +386,7 @@ function disableScroll(event) {
 // document.addEventListener("touchmove", disableScroll, { passive: false });
 
 let os;
+let db;
 
 // DOM構築完了イベントハンドラ登録
 window.addEventListener("DOMContentLoaded", init);
@@ -393,7 +394,7 @@ window.addEventListener("DOMContentLoaded", init);
 function init() {
   // indexedDBからデータを取得
   const DB_VERSION = 1;
-  const db = new Database({ dbName: "ruinDB", dbVersion: DB_VERSION });
+  db = new Database({ dbName: "ruinDB", dbVersion: DB_VERSION });
 
   document.addEventListener(
     "dblclick",
@@ -440,6 +441,8 @@ function init() {
 
       _album[_targetRuin] = preview.src;
       // indexedDBに保存
+      const item = { id: "1", ruinName: _targetRuin, photoSrc: preview.src };
+      db.register(item);
     });
 
     document.querySelector(".album").addEventListener("click", () => {
